@@ -397,13 +397,20 @@ function drawNetworkConnections() {
 }
 
 async function demonstrateNetwork(partyType) {
+    // Get DOM elements
     const nodes = ['venue-agent', 'budget-agent', 'catering-agent', 'entertainment-agent'];
     const resultBox = document.getElementById('network-result');
     const messageBubble = document.getElementById('network-message');
+    const networkGrid = document.querySelector('.network-grid') || document.querySelector('.slide-body .network-grid');
+    
+    if (!networkGrid || !messageBubble || !resultBox) {
+        console.warn('Network pattern elements not found');
+        return;
+    }
     
     // Reset all nodes
     nodes.forEach(id => {
-        const node = document.getElementById(id);
+        const node = document.getElementById(id) || document.querySelector(`[id="${id}"]`);
         if (!node) return;
         
         node.classList.remove('active', 'sender', 'receiver');
@@ -417,12 +424,24 @@ async function demonstrateNetwork(partyType) {
     // Generate party planning messages
     const messages = this.generateNetworkMessages(partyType);
     
+    // Add visual indicator for connections
+    const connections = document.querySelector('#network-connections svg') || 
+                         document.querySelector('.slide-body #network-connections svg');
+    
+    if (connections) {
+        const lines = connections.querySelectorAll('line');
+        lines.forEach(line => {
+            line.setAttribute('stroke-dasharray', '5,5');
+            line.setAttribute('stroke-width', '2');
+        });
+    }
+    
     // Simulate network communication
     for (let i = 0; i < messages.length; i++) {
         const { from, to, message } = messages[i];
         
-        const fromNode = document.getElementById(from);
-        const toNode = document.getElementById(to);
+        const fromNode = document.getElementById(from) || document.querySelector(`[id="${from}"]`);
+        const toNode = document.getElementById(to) || document.querySelector(`[id="${to}"]`);
         
         if (!fromNode || !toNode) continue;
         
@@ -430,36 +449,56 @@ async function demonstrateNetwork(partyType) {
         fromNode.classList.add('active', 'sender');
         toNode.classList.add('active', 'receiver');
         
+        // Highlight the connection line between these nodes
+        if (connections) {
+            highlightConnectionBetween(from, to, connections);
+        }
+        
         // Calculate message path
+        const networkRect = networkGrid.getBoundingClientRect();
         const fromRect = fromNode.getBoundingClientRect();
         const toRect = toNode.getBoundingClientRect();
-        const containerRect = document.querySelector('.network-grid').getBoundingClientRect();
         
-        const fromX = fromRect.left - containerRect.left + fromRect.width / 2;
-        const fromY = fromRect.top - containerRect.top + fromRect.height / 2;
-        const toX = toRect.left - containerRect.left + toRect.width / 2;
-        const toY = toRect.top - containerRect.top + toRect.height / 2;
+        const fromX = fromRect.left - networkRect.left + (fromRect.width / 2);
+        const fromY = fromRect.top - networkRect.top + (fromRect.height / 2);
+        const toX = toRect.left - networkRect.left + (toRect.width / 2);
+        const toY = toRect.top - networkRect.top + (toRect.height / 2);
+        
+        // Display message with sender prefix
+        const fromName = fromNode.querySelector('h4').textContent;
+        const formattedMessage = `<strong>${fromName}:</strong> ${message}`;
         
         // Position and show message
         messageBubble.style.setProperty('--move-x', `${toX - fromX}px`);
         messageBubble.style.setProperty('--move-y', `${toY - fromY}px`);
         messageBubble.style.left = `${fromX}px`;
         messageBubble.style.top = `${fromY}px`;
-        messageBubble.textContent = message;
+        messageBubble.innerHTML = formattedMessage;
         messageBubble.classList.add('show');
         
         // Wait for animation
         await this.delay(3000);
         messageBubble.classList.remove('show');
         
-        // Update preview
+        // Update preview with the message
         const preview = toNode.querySelector('.message-preview');
-        if (preview) preview.textContent = message;
+        if (preview) {
+            preview.innerHTML = formattedMessage;
+            preview.style.backgroundColor = '#d1ecf1';
+            setTimeout(() => {
+                preview.style.backgroundColor = '#f8f9fa';
+            }, 1000);
+        }
         
         // Reset highlights after delay
-        await this.delay(500);
+        await this.delay(1000);
         fromNode.classList.remove('sender');
         toNode.classList.remove('receiver');
+        
+        // Remove highlight from connection
+        if (connections) {
+            resetConnectionHighlights(connections);
+        }
     }
     
     // Show final plan
@@ -469,8 +508,59 @@ async function demonstrateNetwork(partyType) {
     
     // Reset all nodes
     nodes.forEach(id => {
-        const node = document.getElementById(id);
+        const node = document.getElementById(id) || document.querySelector(`[id="${id}"]`);
         if (node) node.classList.remove('active');
+    });
+}
+
+// Helper function to highlight connection between two nodes
+function highlightConnectionBetween(fromId, toId, svgElement) {
+    const lines = svgElement.querySelectorAll('line');
+    lines.forEach(line => {
+        // Get the IDs of nodes this line connects
+        const x1 = parseFloat(line.getAttribute('x1'));
+        const y1 = parseFloat(line.getAttribute('y1'));
+        const x2 = parseFloat(line.getAttribute('x2'));
+        const y2 = parseFloat(line.getAttribute('y2'));
+        
+        // Check if this line connects our nodes
+        const fromNode = document.getElementById(fromId) || document.querySelector(`[id="${fromId}"]`);
+        const toNode = document.getElementById(toId) || document.querySelector(`[id="${toId}"]`);
+        
+        if (!fromNode || !toNode) return;
+        
+        const fromRect = fromNode.getBoundingClientRect();
+        const toRect = toNode.getBoundingClientRect();
+        const containerRect = svgElement.parentElement.getBoundingClientRect();
+        
+        const fromCenterX = fromRect.left - containerRect.left + fromRect.width/2;
+        const fromCenterY = fromRect.top - containerRect.top + fromRect.height/2;
+        const toCenterX = toRect.left - containerRect.left + toRect.width/2;
+        const toCenterY = toRect.top - containerRect.top + toRect.height/2;
+        
+        // Simple check if this line approximately connects these nodes
+        const connectsNodes = 
+            (Math.abs(x1 - fromCenterX) < 50 && Math.abs(y1 - fromCenterY) < 50 &&
+             Math.abs(x2 - toCenterX) < 50 && Math.abs(y2 - toCenterY) < 50) ||
+            (Math.abs(x2 - fromCenterX) < 50 && Math.abs(y2 - fromCenterY) < 50 &&
+             Math.abs(x1 - toCenterX) < 50 && Math.abs(y1 - toCenterY) < 50);
+        
+        if (connectsNodes) {
+            // Highlight this connection
+            line.setAttribute('stroke', '#28a745');
+            line.setAttribute('stroke-width', '4');
+            line.setAttribute('stroke-dasharray', '');
+        }
+    });
+}
+
+// Helper function to reset all connection highlights
+function resetConnectionHighlights(svgElement) {
+    const lines = svgElement.querySelectorAll('line');
+    lines.forEach(line => {
+        line.setAttribute('stroke', '#667eea');
+        line.setAttribute('stroke-width', '2');
+        line.setAttribute('stroke-dasharray', '5,5');
     });
 }
 

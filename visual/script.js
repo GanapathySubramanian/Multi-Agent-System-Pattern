@@ -90,11 +90,17 @@ class MultiAgentDemo {
     }
 
     async demonstrateRouting(message, targetLanguage, response) {
-        // Reset all agents
-        const agents = document.querySelectorAll('#route-pattern .agent-card');
-        const leaderStatus = document.getElementById('leader-status');
-        const messageBubble = document.getElementById('route-message');
-        const resultBox = document.getElementById('route-result');
+        // Use flexible selectors that work in both regular and presentation modes
+        // The .agent-card elements might be in the original #route-pattern or in a slide-body
+        const agents = document.querySelectorAll('.agent-card[data-lang]');
+        const leaderStatus = document.querySelector('#leader-status, [id="leader-status"]');
+        const messageBubble = document.querySelector('#route-message, [id="route-message"]');
+        const resultBox = document.querySelector('#route-result, [id="route-result"]');
+
+        if (!agents.length || !leaderStatus || !messageBubble || !resultBox) {
+            console.warn('Route pattern elements not found');
+            return;
+        }
 
         agents.forEach(agent => {
             agent.classList.remove('active');
@@ -104,7 +110,15 @@ class MultiAgentDemo {
 
         // Step 1: Show message
         messageBubble.textContent = message;
-        messageBubble.classList.add('show');
+        
+        // In presentation mode, show message without animation; otherwise animate
+        if (document.querySelector('.slide-content')) {
+            messageBubble.style.opacity = '1'; // Make visible without animation
+            messageBubble.style.transform = 'translateY(0)';
+        } else {
+            messageBubble.classList.add('show');
+        }
+        
         leaderStatus.textContent = 'Analyzing...';
         leaderStatus.className = 'status processing';
 
@@ -115,12 +129,14 @@ class MultiAgentDemo {
         await this.delay(1000);
 
         // Step 3: Route to appropriate agent
-        const targetAgent = document.querySelector(`#route-pattern .agent-card[data-lang="${targetLanguage}"]`);
+        const targetAgent = document.querySelector(`.agent-card[data-lang="${targetLanguage}"]`);
         if (targetAgent) {
             targetAgent.classList.add('active');
             const agentStatus = targetAgent.querySelector('.status');
-            agentStatus.textContent = 'Processing';
-            agentStatus.className = 'status processing';
+            if (agentStatus) {
+                agentStatus.textContent = 'Processing';
+                agentStatus.className = 'status processing';
+            }
         }
 
         leaderStatus.textContent = `Routed to ${targetLanguage} Agent`;
@@ -129,8 +145,10 @@ class MultiAgentDemo {
         // Step 4: Show response
         if (targetAgent) {
             const agentStatus = targetAgent.querySelector('.status');
-            agentStatus.textContent = 'Completed';
-            agentStatus.className = 'status completed';
+            if (agentStatus) {
+                agentStatus.textContent = 'Completed';
+                agentStatus.className = 'status completed';
+            }
         }
 
         leaderStatus.textContent = 'Ready';
@@ -140,9 +158,14 @@ class MultiAgentDemo {
         resultBox.className = 'result-box success';
 
         // Hide message bubble after delay
-        setTimeout(() => {
-            messageBubble.classList.remove('show');
-        }, 3000);
+        // In presentation mode, keep it visible; otherwise hide with animation
+        if (document.querySelector('.slide-content')) {
+            // Keep the message visible in presentation mode
+        } else {
+            setTimeout(() => {
+                messageBubble.classList.remove('show');
+            }, 3000);
+        }
     }
 
     // Coordinate Pattern Implementation
