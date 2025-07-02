@@ -1,0 +1,8 @@
+# Core dependencies
+python-dotenv>=1.0.0  # For loading environment variables
+rich>=13.0.0          # For pretty console output
+
+# LangChain and AWS integration
+langchain>=0.3.0      # Core LangChain functionality
+langchain-aws>=0.2.0  # AWS integration for LangChain (Bedrock)
+boto3>=1.28.0         # AWS SDK for Python
