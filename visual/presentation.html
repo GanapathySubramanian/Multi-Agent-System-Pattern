@@ -15,6 +15,7 @@
     </header>
 
     <nav class="pattern-nav">
+        <button class="nav-btn" data-pattern="profile">Presenter Profile</button>
         <button class="nav-btn active" data-pattern="route">Route Pattern</button>
         <button class="nav-btn" data-pattern="coordinate">Coordinate Pattern</button>
         <button class="nav-btn" data-pattern="collaborate">Collaborate Pattern</button>
@@ -24,6 +25,26 @@
         <button class="nav-btn" data-pattern="network">Network Pattern</button>
         <button class="nav-btn" data-pattern="hierarchical">Hierarchical Pattern</button>
     </nav>
+
+    <!-- Profile Section -->
+    <section id="profile-pattern" class="pattern-section">
+        <div class="pattern-header">
+            <h2>Multi-Agent System Patterns - Interactive Demonstration</h2>
+            <p>Exploring different ways AI agents can work together to accomplish complex tasks</p>
+        </div>
+        
+        <div class="demo-container">
+            <div class="profile-content">
+                <div class="profile-image-container">
+                    <img src="presenter-profile.png" alt="Presenter Profile" class="profile-image">
+                </div>
+                <div class="profile-details">
+                    <h2>Ganapathy Subramanian S</h2>
+                    <h3>Engineer at Presidio</h3>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Route Pattern Demo -->
     <section id="route-pattern" class="pattern-section active">
@@ -36,16 +57,16 @@
             <div class="input-section">
                 <h3>Try Different Languages:</h3>
                 <div class="language-buttons">
-                    <button class="lang-btn" data-text="Hello, how are you?" data-lang="English">English</button>
-                    <button class="lang-btn" data-text="Hola, ¿cómo estás?" data-lang="Spanish">Spanish</button>
-                    <button class="lang-btn" data-text="Bonjour, comment allez-vous?" data-lang="French">French</button>
-                    <button class="lang-btn" data-text="你好吗？" data-lang="Chinese">Chinese</button>
-                    <button class="lang-btn" data-text="お元気ですか？" data-lang="Japanese">Japanese</button>
+                    <button class="route-lang-btn btn" data-text="Hello, how are you?" data-lang="English">English</button>
+                    <button class="route-lang-btn btn" data-text="Hola, ¿cómo estás?" data-lang="Spanish">Spanish</button>
+                    <button class="route-lang-btn btn" data-text="Bonjour, comment allez-vous?" data-lang="French">French</button>
+                    <button class="route-lang-btn btn" data-text="你好吗？" data-lang="Chinese">Chinese</button>
+                    <button class="route-lang-btn btn" data-text="お元気ですか？" data-lang="Japanese">Japanese</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="route-input" placeholder="Or type your own message...">
                     <button id="route-submit">Send</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -108,15 +129,15 @@
             <div class="input-section">
                 <h3>Request an Article:</h3>
                 <div class="topic-buttons">
-                    <button class="topic-btn" data-topic="Artificial Intelligence">AI Trends</button>
-                    <button class="topic-btn" data-topic="Climate Change">Climate Change</button>
-                    <button class="topic-btn" data-topic="Space Exploration">Space Exploration</button>
-                    <button class="topic-btn" data-topic="Renewable Energy">Renewable Energy</button>
+                    <button class="coordinate-topic-btn btn" data-topic="Artificial Intelligence">AI Trends</button>
+                    <button class="coordinate-topic-btn btn" data-topic="Climate Change">Climate Change</button>
+                    <button class="coordinate-topic-btn btn" data-topic="Space Exploration">Space Exploration</button>
+                    <button class="coordinate-topic-btn btn" data-topic="Renewable Energy">Renewable Energy</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="coordinate-input" placeholder="Or enter your own topic...">
                     <button id="coordinate-submit">Create Article</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -178,15 +199,15 @@
             <div class="input-section">
                 <h3>Ask the Research Panel:</h3>
                 <div class="question-buttons">
-                    <button class="question-btn" data-question="What is the best way to learn programming?">Learning Programming</button>
-                    <button class="question-btn" data-question="How will AI impact jobs in the next 5 years?">AI Impact on Jobs</button>
-                    <button class="question-btn" data-question="What are the most promising renewable energy technologies?">Renewable Energy Tech</button>
-                    <button class="question-btn" data-question="How can we improve remote work productivity?">Remote Work Tips</button>
+                    <button class="collaborate-question-btn btn" data-question="What is the best way to learn programming?">Learning Programming</button>
+                    <button class="collaborate-question-btn btn" data-question="How will AI impact jobs in the next 5 years?">AI Impact on Jobs</button>
+                    <button class="collaborate-question-btn btn" data-question="What are the most promising renewable energy technologies?">Renewable Energy Tech</button>
+                    <button class="collaborate-question-btn btn" data-question="How can we improve remote work productivity?">Remote Work Tips</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="collaborate-input" placeholder="Or ask your own question...">
                     <button id="collaborate-submit">Ask Panel</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -248,15 +269,15 @@
             <div class="input-section">
                 <h3>Select Essay Topic:</h3>
                 <div class="topic-buttons">
-                    <button class="topic-btn" data-topic="Climate Change">Climate Change</button>
-                    <button class="topic-btn" data-topic="Artificial Intelligence Ethics">AI Ethics</button>
-                    <button class="topic-btn" data-topic="Space Exploration">Space Exploration</button>
-                    <button class="topic-btn" data-topic="Renewable Energy">Renewable Energy</button>
+                    <button class="loop-topic-btn btn" data-topic="Climate Change">Climate Change</button>
+                    <button class="loop-topic-btn btn" data-topic="Artificial Intelligence Ethics">AI Ethics</button>
+                    <button class="loop-topic-btn btn" data-topic="Space Exploration">Space Exploration</button>
+                    <button class="loop-topic-btn btn" data-topic="Renewable Energy">Renewable Energy</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="loop-input" placeholder="Or enter your own topic...">
                     <button id="loop-submit">Write Essay</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -325,15 +346,15 @@
             <div class="input-section">
                 <h3>Select Location:</h3>
                 <div class="location-buttons">
-                    <button class="topic-btn" data-location="New York">New York</button>
-                    <button class="topic-btn" data-location="London">London</button>
-                    <button class="topic-btn" data-location="Tokyo">Tokyo</button>
-                    <button class="topic-btn" data-location="Sydney">Sydney</button>
+                    <button class="aggregator-location-btn btn" data-location="New York">New York</button>
+                    <button class="aggregator-location-btn btn" data-location="London">London</button>
+                    <button class="aggregator-location-btn btn" data-location="Tokyo">Tokyo</button>
+                    <button class="aggregator-location-btn btn" data-location="Sydney">Sydney</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="aggregator-input" placeholder="Or enter your location...">
                     <button id="aggregator-submit">Get Forecast</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -393,15 +414,15 @@
             <div class="input-section">
                 <h3>Select Party Type:</h3>
                 <div class="party-buttons">
-                    <button class="topic-btn" data-party="Birthday">Birthday Party</button>
-                    <button class="topic-btn" data-party="Wedding">Wedding Reception</button>
-                    <button class="topic-btn" data-party="Corporate">Corporate Event</button>
-                    <button class="topic-btn" data-party="Holiday">Holiday Celebration</button>
+                    <button class="network-party-btn btn" data-party="Birthday">Birthday Party</button>
+                    <button class="network-party-btn btn" data-party="Wedding">Wedding Reception</button>
+                    <button class="network-party-btn btn" data-party="Corporate">Corporate Event</button>
+                    <button class="network-party-btn btn" data-party="Holiday">Holiday Celebration</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="network-input" placeholder="Or describe your event...">
                     <button id="network-submit">Plan Event</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -458,15 +479,15 @@
             <div class="input-section">
                 <h3>Select Project Type:</h3>
                 <div class="project-buttons">
-                    <button class="topic-btn" data-project="Mobile App">Mobile App</button>
-                    <button class="topic-btn" data-project="Web Platform">Web Platform</button>
-                    <button class="topic-btn" data-project="E-commerce">E-commerce Site</button>
-                    <button class="topic-btn" data-project="Data Dashboard">Data Dashboard</button>
+                    <button class="hierarchical-project-btn btn" data-project="Mobile App">Mobile App</button>
+                    <button class="hierarchical-project-btn btn" data-project="Web Platform">Web Platform</button>
+                    <button class="hierarchical-project-btn btn" data-project="E-commerce">E-commerce Site</button>
+                    <button class="hierarchical-project-btn btn" data-project="Data Dashboard">Data Dashboard</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="hierarchical-input" placeholder="Or describe your project...">
                     <button id="hierarchical-submit">Start Project</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -534,12 +555,12 @@
             <div class="input-section">
                 <h3>Post a Task for Bidding:</h3>
                 <div class="task-buttons">
-                    <button class="task-btn" data-task="Translate 1000 words from English to Spanish" data-complexity="medium">Translation Task</button>
-                    <button class="task-btn" data-task="Create a logo design for a tech startup" data-complexity="high">Logo Design</button>
-                    <button class="task-btn" data-task="Write a 500-word blog post about AI" data-complexity="low">Blog Writing</button>
-                    <button class="task-btn" data-task="Develop a simple mobile app prototype" data-complexity="high">App Development</button>
+                    <button class="competitive-task-btn btn" data-task="Translate 1000 words from English to Spanish" data-complexity="medium">Translation Task</button>
+                    <button class="competitive-task-btn btn" data-task="Create a logo design for a tech startup" data-complexity="high">Logo Design</button>
+                    <button class="competitive-task-btn btn" data-task="Write a 500-word blog post about AI" data-complexity="low">Blog Writing</button>
+                    <button class="competitive-task-btn btn" data-task="Develop a simple mobile app prototype" data-complexity="high">App Development</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="competitive-input" placeholder="Or describe your own task...">
                     <select id="task-complexity">
                         <option value="low">Low Complexity</option>
@@ -547,7 +568,7 @@
                         <option value="high">High Complexity</option>
                     </select>
                     <button id="competitive-submit">Post Task</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -614,7 +635,6 @@
     </section>
 
     <!-- Load all required scripts -->
-    <script src="new-patterns.js"></script>
     <script src="script.js"></script>
     <script src="presentation.js"></script>
 </body>

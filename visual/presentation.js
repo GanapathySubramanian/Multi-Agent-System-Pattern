@@ -9,6 +9,7 @@ class PresentationCarousel {
         this.totalSlides = 0;
         this.patterns = [
             'intro',
+            'profile',
             'route',
             'coordinate', 
             'collaborate',
@@ -20,6 +21,7 @@ class PresentationCarousel {
         ];
         this.titles = {
             'intro': 'Multi-Agent System Patterns - Introduction',
+            'profile': 'About the Presenter',
             'route': 'Route Pattern - Smart Language Router',
             'coordinate': 'Coordinate Pattern - Content Creation Workflow',
             'collaborate': 'Collaborate Pattern - Research Panel Discussion',
@@ -31,6 +33,7 @@ class PresentationCarousel {
         };
         this.descriptions = {
             'intro': 'Exploring different ways AI agents can work together to accomplish complex tasks.',
+            'profile': 'Presented by Ganapathy Subramanian S, Engineer at Presidio',
             'route': 'The Team Leader analyzes the query and routes it to the most appropriate specialist agent.',
             'coordinate': 'The Team Leader delegates tasks sequentially and synthesizes outputs into a cohesive response.',
             'collaborate': 'All team members respond simultaneously, then the coordinator synthesizes into a consensus.',
@@ -46,6 +49,7 @@ class PresentationCarousel {
     init() {
         // Wait for the DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', () => {
+            // Skip creating intro slide since we already have it in HTML
             this.createIntroSlide();
             this.setupCarousel();
             this.setupNavigation();

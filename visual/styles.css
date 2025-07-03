@@ -114,28 +114,41 @@ header p {
     color: #333;
 }
 
-.language-buttons, .topic-buttons, .question-buttons, .task-buttons {
+.language-buttons, .topic-buttons, .question-buttons, .task-buttons,
+.location-buttons, .party-buttons, .project-buttons {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1rem;
     flex-wrap: wrap;
 }
 
-.lang-btn, .topic-btn, .question-btn, .task-btn {
-    padding: 0.6rem 1.2rem;
-    border: 2px solid #667eea;
-    border-radius: 20px;
-    background: white;
-    color: #667eea;
+.route-lang-btn, .coordinate-topic-btn, .collaborate-question-btn, .competitive-task-btn,
+.loop-topic-btn, .aggregator-location-btn, .network-party-btn, .hierarchical-project-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: 500;
+    box-shadow: 0 4px 6px rgba(102, 126, 234, 0.25);
+    font-size: 0.95rem;
 }
 
-.lang-btn:hover, .topic-btn:hover, .question-btn:hover, .task-btn:hover {
-    background: #667eea;
-    color: white;
-    transform: translateY(-2px);
+.route-lang-btn:hover, .coordinate-topic-btn:hover, .collaborate-question-btn:hover, 
+.competitive-task-btn:hover, .loop-topic-btn:hover, .aggregator-location-btn:hover, 
+.network-party-btn:hover, .hierarchical-project-btn:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.route-lang-btn:active, .coordinate-topic-btn:active, .collaborate-question-btn:active, 
+.competitive-task-btn:active, .loop-topic-btn:active, .aggregator-location-btn:active, 
+.network-party-btn:active, .hierarchical-project-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
 }
 
 .custom-input {
@@ -1033,6 +1046,116 @@ footer {
     
     .custom-input input {
         min-width: auto;
+    }
+}
+
+/* Profile Section Styles */
+.profile-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+    padding: 2rem;
+}
+
+.profile-image-container {
+    flex: 0 0 300px;
+}
+
+.profile-image {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 3px solid rgba(102, 126, 234, 0.5);
+    transition: all 0.3s ease;
+}
+
+.profile-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+.profile-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.profile-details h2 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+}
+
+.profile-details h3 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.profile-description {
+    background: rgba(255, 255, 255, 0.2);
+    border-left: 4px solid #667eea;
+    padding: 1rem 1.5rem;
+    border-radius: 0 10px 10px 0;
+}
+
+.profile-description p {
+    margin: 0.8rem 0;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.webinar-agenda {
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.webinar-agenda h4 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.webinar-agenda ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.webinar-agenda li {
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+/* Responsive design for profile section */
+@media (max-width: 768px) {
+    .profile-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+    
+    .profile-image-container {
+        flex: 0 0 auto;
+        width: 200px;
+    }
+    
+    .profile-details {
+        text-align: center;
+    }
+    
+    .profile-description {
+        border-left: none;
+        border-top: 4px solid #667eea;
+        border-radius: 0 0 10px 10px;
+        text-align: left;
     }
 }
 

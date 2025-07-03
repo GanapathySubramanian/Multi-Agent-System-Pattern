@@ -171,6 +171,117 @@ body {
     overflow-y: auto;
 }
 
+/* Profile Section Styles for Presentation Mode */
+.slide-body .profile-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+    padding: 2rem;
+    background: var(--card-bg);
+}
+
+.slide-body .profile-image-container {
+    flex: 0 0 300px;
+}
+
+.slide-body .profile-image {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 3px solid rgba(102, 126, 234, 0.5);
+    transition: all 0.3s ease;
+}
+
+.slide-body .profile-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+.slide-body .profile-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.slide-body .profile-details h2 {
+    font-size: 2.8rem;
+    margin: 0;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.slide-body .profile-details h3 {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.slide-body .profile-description {
+    background: rgba(255, 255, 255, 0.2);
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    border-radius: 0 10px 10px 0;
+}
+
+.slide-body .profile-description p {
+    margin: 0.8rem 0;
+    font-size: 1.3rem;
+    color: var(--text-color);
+}
+
+.slide-body .webinar-agenda {
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.slide-body .webinar-agenda h4 {
+    margin-top: 0;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.slide-body .webinar-agenda ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.slide-body .webinar-agenda li {
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+/* Responsive design for profile section in presentation */
+@media (max-width: 768px) {
+    .slide-body .profile-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+    
+    .slide-body .profile-image-container {
+        flex: 0 0 auto;
+        width: 200px;
+    }
+    
+    .slide-body .profile-details {
+        text-align: center;
+    }
+    
+    .slide-body .profile-description {
+        border-left: none;
+        border-top: 4px solid var(--primary-color);
+        border-radius: 0 0 10px 10px;
+        text-align: left;
+    }
+}
+
 /* Keyboard shortcut hint */
 .keyboard-hint {
     position: fixed;
