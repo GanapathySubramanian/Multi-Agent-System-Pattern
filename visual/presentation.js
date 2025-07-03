@@ -9,6 +9,7 @@ class PresentationCarousel {
         this.totalSlides = 0;
         this.patterns = [
             'intro',
+            'profile',
             'route',
             'coordinate', 
             'collaborate',
@@ -20,6 +21,7 @@ class PresentationCarousel {
         ];
         this.titles = {
             'intro': 'Multi-Agent System Patterns - Introduction',
+            'profile': 'Presenter',
             'route': 'Route Pattern - Smart Language Router',
             'coordinate': 'Coordinate Pattern - Content Creation Workflow',
             'collaborate': 'Collaborate Pattern - Research Panel Discussion',
@@ -31,6 +33,7 @@ class PresentationCarousel {
         };
         this.descriptions = {
             'intro': 'Exploring different ways AI agents can work together to accomplish complex tasks.',
+            'profile': 'About the presenter',
             'route': 'The Team Leader analyzes the query and routes it to the most appropriate specialist agent.',
             'coordinate': 'The Team Leader delegates tasks sequentially and synthesizes outputs into a cohesive response.',
             'collaborate': 'All team members respond simultaneously, then the coordinator synthesizes into a consensus.',
@@ -43,10 +46,12 @@ class PresentationCarousel {
         this.init();
     }
 
+    
     init() {
         // Wait for the DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             this.createIntroSlide();
+            this.createProfileSlide();
             this.setupCarousel();
             this.setupNavigation();
             this.setupKeyboardShortcuts();
@@ -61,6 +66,7 @@ class PresentationCarousel {
             }
         });
     }
+    
     
     createIntroSlide() {
         // Create an introduction slide
@@ -129,6 +135,49 @@ class PresentationCarousel {
             document.body.appendChild(introSection);
         }
     }
+    
+    createProfileSlide() {
+        // Create a profile slide
+        const profileSection = document.createElement('section');
+        profileSection.id = 'profile-pattern';
+        profileSection.className = 'pattern-section';
+        
+        const patternHeader = document.createElement('div');
+        patternHeader.className = 'pattern-header';
+        patternHeader.innerHTML = `
+            <h2>About the Presenter</h2>
+        `;
+        
+        const demoContainer = document.createElement('div');
+        demoContainer.className = 'demo-container';
+        demoContainer.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; background-color: rgba(15, 23, 42, 0.95);">
+                <div style="width: 250px; margin-bottom: 30px;">
+                    <img src="presenter-profile.png" alt="Ganapathy Subramanian S" 
+                         style="width: 100%; border-radius: 50%; box-shadow: 0 8px 30px rgba(0,0,0,0.3);">
+                </div>
+                
+                <h2 style="font-size: 3rem; margin-bottom: 15px; color: white;">Ganapathy Subramanian S</h2>
+                <p style="font-size: 1.8rem; margin-bottom: 40px; color: #e2e8f0;">Engineer at Presidio</p>
+            </div>
+        `;
+        
+        profileSection.appendChild(patternHeader);
+        profileSection.appendChild(demoContainer);
+        
+        // Find the first pattern section (which should be the intro section we just created)
+        const introSection = document.getElementById('intro-pattern');
+        if (introSection && introSection.parentNode) {
+            // Insert after the intro section
+            if (introSection.nextSibling) {
+                introSection.parentNode.insertBefore(profileSection, introSection.nextSibling);
+            } else {
+                introSection.parentNode.appendChild(profileSection);
+            }
+        } else {
+            document.body.appendChild(profileSection);
+        }
+    }
 
     setupCarousel() {
         // Create the carousel container structure
@@ -168,6 +217,7 @@ class PresentationCarousel {
             // Create slide header
             const slideHeader = document.createElement('div');
             slideHeader.className = 'slide-header';
+            
             slideHeader.innerHTML = `
                 <h2>${this.titles[patternId] || section.querySelector('h2').textContent}</h2>
                 <p>${this.descriptions[patternId] || section.querySelector('.pattern-header p').textContent}</p>
