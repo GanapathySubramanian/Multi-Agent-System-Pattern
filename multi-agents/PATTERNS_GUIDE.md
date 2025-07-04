@@ -118,13 +118,6 @@ The Loop Pattern implements iterative improvement through feedback cycles, with 
 - Iterative design processes
 - Progressive learning applications
 
-## 6. Aggregator Pattern
-
-**Demo: Weather Forecast System**
-
-### Core Concept:
-The Aggregator Pattern collects and synthesizes information from multiple specialized sources to create a comprehensive output.
-
 ### Workflow:
 1. **Data collection** from multiple specialized agents
 2. **Independent analysis** by each source agent
@@ -195,7 +188,6 @@ To run any of these pattern demos:
 # Run a specific pattern demo
 python demo_launcher.py route
 python demo_launcher.py loop
-python demo_launcher.py aggregator
 
 # Run all pattern demos in sequence
 python demo_launcher.py all

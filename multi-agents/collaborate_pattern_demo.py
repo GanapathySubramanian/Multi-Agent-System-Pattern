@@ -1,5 +1,5 @@
 """
-Collaborate Pattern Demo - Investment Analysis Panel
+Collaborate Pattern Demo - Vacation Planning Team
 Demonstrates parallel collaboration with consensus building among multiple expert agents
 """
 
@@ -28,7 +28,7 @@ class CollaboratePatternDemo:
         self.setup_agents()
     
     def setup_agents(self):
-        """Setup specialized agents for investment analysis"""
+        """Setup specialized agents for vacation planning"""
         
         # HARDCODED: Use supported model ID that doesn't require inference profiles
         claude_model = "anthropic.claude-3-5-sonnet-20240620-v1:0"  # Hardcoded to bypass .env issues
@@ -39,121 +39,103 @@ class CollaboratePatternDemo:
         # Create LangChain model
         self.llm = ChatBedrock(model_id=claude_model, region_name=region_name)
         
-        # Technical Analysis Agent
-        self.technical_analyst = self.create_agent(
-            name="Technical Analysis Expert",
-            role="Expert in technical analysis, chart patterns, and market trends",
+        # Budget Advisor Agent
+        self.budget_advisor = self.create_agent(
+            name="Budget Advisor",
+            role="Vacation budget and cost specialist",
             instructions="""
-            You are a technical analysis expert specializing in chart patterns, market trends, and price movements.
-            When analyzing a stock or market, focus on:
-            - Price trends and momentum indicators
-            - Support and resistance levels
-            - Volume analysis and market sentiment
-            - Chart patterns and technical signals
-            - Short to medium-term price predictions
-            - Risk levels based on technical indicators
+            You are a budget travel specialist who helps people understand the costs of vacation destinations.
+            When analyzing a vacation destination, focus on:
+            - Typical flight costs from major cities
+            - Range of accommodation options and prices
+            - Food and dining expense estimates
+            - Activity and attraction costs
+            - Transportation costs while at the destination
+            - Tips for saving money and budget hacks
             
-            Provide clear, actionable insights based on technical analysis principles.
-            Be specific about entry/exit points and risk management.
+            Provide clear, practical budget information that helps travelers plan financially.
+            Use specific price ranges whenever possible (budget, moderate, luxury).
             
             Format your analysis with clear sections and bullet points.
-            Conclude with a technical rating: Strong Buy, Buy, Neutral, Sell, or Strong Sell.
+            Conclude with an affordability rating: Very Affordable, Affordable, Moderate, Expensive, or Very Expensive.
+            Keep your response under 200 words.
             """
         )
         
-        # Fundamental Analysis Agent
-        self.fundamental_analyst = self.create_agent(
-            name="Fundamental Analysis Expert",
-            role="Expert in fundamental analysis, financial statements, and company valuation",
+        # Activities Recommender Agent
+        self.activities_recommender = self.create_agent(
+            name="Activities Recommender",
+            role="Attractions and activities specialist",
             instructions="""
-            You are a fundamental analysis expert specializing in company valuation and financial analysis.
-            When analyzing a company or stock, focus on:
-            - Financial health and key ratios (P/E, ROE, debt levels)
-            - Revenue growth and profitability trends
-            - Competitive position and market share
-            - Management quality and corporate governance
-            - Industry outlook and economic factors
-            - Long-term value proposition
+            You are an activities and attractions specialist who recommends the best things to do at vacation destinations.
+            When analyzing a vacation destination, focus on:
+            - Must-see attractions and landmarks
+            - Popular activities and experiences
+            - Hidden gems that tourists often miss
+            - Family-friendly vs. adult-oriented activities
+            - Cultural experiences and local events
+            - Nature and outdoor adventure options
             
-            Provide thorough analysis of the company's intrinsic value and growth prospects.
-            Consider both opportunities and risks from a fundamental perspective.
+            Provide a diverse mix of activity recommendations that would appeal to different interests.
+            Be specific with attraction names and activity suggestions.
             
-            Format your analysis with clear sections and bullet points.
-            Conclude with a fundamental rating: Strong Buy, Buy, Neutral, Sell, or Strong Sell.
+            Format your recommendations with clear sections and bullet points.
+            Conclude with an activities rating: Limited Options, Good Selection, or Outstanding Variety.
+            Keep your response under 200 words.
             """
         )
         
-        # Market Sentiment Agent
-        self.sentiment_analyst = self.create_agent(
-            name="Market Sentiment Analyst",
-            role="Expert in market psychology, news analysis, and investor sentiment",
+        # Local Experience Expert Agent
+        self.local_expert = self.create_agent(
+            name="Local Experience Expert",
+            role="Destination insider with local knowledge",
             instructions="""
-            You are a market sentiment analyst specializing in investor psychology and market mood.
-            When analyzing market sentiment, focus on:
-            - Current market mood and investor confidence
-            - News impact and media coverage analysis
-            - Social media sentiment and retail investor behavior
-            - Institutional investor positioning
-            - Fear and greed indicators
-            - Market volatility and uncertainty levels
+            You are a local experience expert who provides insider knowledge about vacation destinations.
+            When analyzing a vacation destination, focus on:
+            - Best times of year to visit (weather, crowds, events)
+            - Local customs and etiquette tips
+            - Transportation and getting around advice
+            - Health and safety considerations
+            - Language tips if applicable
+            - Common tourist mistakes to avoid
             
-            Provide insights on how sentiment might affect price movements.
-            Consider both bullish and bearish sentiment factors.
+            Provide practical insider knowledge that helps travelers have a more authentic and smooth experience.
+            Include specific seasonal recommendations when relevant.
             
-            Format your analysis with clear sections and bullet points.
-            Conclude with a sentiment rating: Very Bullish, Bullish, Neutral, Bearish, or Very Bearish.
+            Format your insights with clear sections and bullet points.
+            Conclude with a best time to visit recommendation and overall experience rating.
+            Keep your response under 200 words.
             """
         )
         
-        # Risk Assessment Agent
-        self.risk_analyst = self.create_agent(
-            name="Risk Assessment Specialist",
-            role="Expert in risk analysis, portfolio management, and risk mitigation strategies",
+        # Vacation Planner (Synthesizer) Agent
+        self.vacation_planner = self.create_agent(
+            name="Vacation Planner",
+            role="Expert in creating comprehensive vacation plans",
             instructions="""
-            You are a risk assessment specialist focusing on investment risks and mitigation strategies.
-            When analyzing investment risks, evaluate:
-            - Market risk and volatility exposure
-            - Company-specific risks and vulnerabilities
-            - Industry and sector risks
-            - Economic and regulatory risks
-            - Liquidity and operational risks
-            - Potential downside scenarios
+            You are a vacation planner responsible for synthesizing multiple expert analyses into a comprehensive vacation recommendation.
             
-            Provide comprehensive risk assessment with specific mitigation strategies.
-            Quantify risks where possible and suggest position sizing recommendations.
-            
-            Format your analysis with clear sections and bullet points.
-            Conclude with a risk rating: Very Low, Low, Moderate, High, or Very High.
-            """
-        )
-        
-        # Synthesis Agent
-        self.synthesizer = self.create_agent(
-            name="Lead Investment Strategist",
-            role="Expert in synthesizing diverse analyses into cohesive recommendations",
-            instructions="""
-            You are the lead investment strategist responsible for synthesizing multiple expert analyses into a comprehensive investment recommendation.
-            
-            You will be provided with four distinct analyses:
-            1. Technical Analysis (price trends, chart patterns)
-            2. Fundamental Analysis (company financials, valuation)
-            3. Market Sentiment Analysis (investor psychology, news impact)
-            4. Risk Assessment (potential risks and mitigations)
+            You will be provided with three distinct analyses:
+            1. Budget Analysis (costs and financial considerations)
+            2. Activities Recommendations (things to do and attractions)
+            3. Local Experience Insights (best times to visit, insider tips)
             
             Your task is to:
-            - Identify areas of consensus and disagreement between the analyses
-            - Weigh the different perspectives appropriately
-            - Resolve conflicting viewpoints
-            - Provide a balanced, comprehensive investment recommendation
+            - Create a balanced vacation plan that considers all perspectives
+            - Highlight the most important information from each expert
+            - Resolve any conflicting viewpoints
+            - Provide a cohesive recommendation that helps the traveler decide
             
             Your final recommendation should include:
-            - Overall investment rating (Strong Buy, Buy, Hold, Sell, or Strong Sell)
-            - Target price or price range (if applicable)
-            - Investment timeframe (short-term, medium-term, long-term)
-            - Key supporting rationale
-            - Risk-adjusted return expectation
+            - Overall destination rating (Perfect Match, Good Choice, Consider Alternatives)
+            - Ideal trip duration
+            - Best time to visit
+            - Budget expectations
+            - Top 3-5 must-do activities
+            - Key planning tips
             
-            Format your recommendation in a clear, structured way with sections and bullet points.
+            Format your recommendation in a friendly, conversational way with clear sections.
+            Keep your response under 300 words.
             """
         )
     
@@ -178,38 +160,37 @@ class CollaboratePatternDemo:
     def display_header(self):
         """Display demo header"""
         header = Panel.fit(
-            "[bold blue]📊 Collaborate Pattern Demo - Investment Analysis Panel[/bold blue]\n"
+            "[bold blue]🏖️ Collaborate Pattern Demo - Vacation Planning Team[/bold blue]\n"
             "[dim]Parallel expert collaboration with consensus building[/dim]",
             border_style="blue"
         )
         console.print(header)
         console.print()
     
-    def display_analysts(self):
-        """Display the analysis team"""
-        table = Table(title="Investment Analysis Team", show_header=True, header_style="bold magenta")
-        table.add_column("Analyst", style="cyan", no_wrap=True)
+    def display_team(self):
+        """Display the vacation planning team"""
+        table = Table(title="Vacation Planning Team", show_header=True, header_style="bold magenta")
+        table.add_column("Team Member", style="cyan", no_wrap=True)
         table.add_column("Expertise", style="green")
         table.add_column("Focus Area", style="yellow")
         
-        analysts_info = [
-            ("Technical Expert", "Chart patterns, trends", "Price movements & timing"),
-            ("Fundamental Expert", "Financial analysis", "Company valuation & growth"),
-            ("Sentiment Analyst", "Market psychology", "Investor mood & news impact"),
-            ("Risk Specialist", "Risk assessment", "Downside protection & mitigation"),
-            ("Lead Strategist", "Synthesis & integration", "Final recommendation & consensus")
+        team_info = [
+            ("Budget Advisor", "Travel costs & finances", "Affordability & money-saving tips"),
+            ("Activities Recommender", "Things to do & see", "Attractions & experiences"),
+            ("Local Expert", "Destination insights", "Best times & insider knowledge"),
+            ("Vacation Planner", "Trip planning & synthesis", "Final recommendation")
         ]
         
-        for analyst, expertise, focus in analysts_info:
-            table.add_row(analyst, expertise, focus)
+        for member, expertise, focus in team_info:
+            table.add_row(member, expertise, focus)
         
         console.print(table)
         console.print()
     
-    def demonstrate_collaboration(self, investment: str):
-        """Demonstrate the collaboration process with a specific investment"""
+    def demonstrate_collaboration(self, destination: str):
+        """Demonstrate the collaboration process with a vacation destination"""
         
-        console.print(f"[bold green]Investment Analysis Target:[/bold green] {investment}")
+        console.print(f"[bold green]Vacation Destination Analysis:[/bold green] {destination}")
         console.print()
         
         # Show collaboration progress
@@ -222,124 +203,101 @@ class CollaboratePatternDemo:
         ) as progress:
             
             # Overall progress
-            overall_task = progress.add_task("📊 Overall Analysis Process", total=5)
+            overall_task = progress.add_task("🏝️ Planning Your Perfect Vacation", total=4)
             
-            # Technical analysis
-            technical_task = progress.add_task("📈 Step 1: Technical Analysis - Chart patterns & trends...", total=None)
+            # Budget analysis
+            budget_task = progress.add_task("💰 Step 1: Budget Advisor - Analyzing costs...", total=None)
             step_start_time = time.time()
             
-            # Execute technical analysis
-            technical_prompt = f"Provide a technical analysis for {investment}. Focus on chart patterns, price trends, support/resistance levels, and technical indicators. Include a clear technical rating at the end."
-            technical_result = self.technical_analyst["chain"].invoke({"input": technical_prompt})
+            # Execute budget analysis
+            budget_prompt = f"Provide a budget analysis for a vacation to {destination}. Focus on typical costs for flights, accommodations, food, activities, and local transportation. Include money-saving tips and an overall affordability rating."
+            budget_result = self.budget_advisor["chain"].invoke({"input": budget_prompt})
             
             # Update progress
-            technical_time = time.time() - step_start_time
-            progress.update(technical_task, completed=True)
+            budget_time = time.time() - step_start_time
+            progress.update(budget_task, completed=True)
             progress.update(overall_task, advance=1)
             
-            # Display technical analysis preview
-            console.print("\n[cyan]Technical Analysis:[/cyan]")
-            console.print(Panel(technical_result.content[:250] + "...", 
-                              title="[bold]Technical Analysis (Preview)[/bold]", 
+            # Display budget analysis preview
+            console.print("\n[cyan]Budget Analysis:[/cyan]")
+            console.print(Panel(budget_result.content[:200] + "...", 
+                              title="[bold]💰 Budget Insights (Preview)[/bold]", 
                               border_style="cyan",
                               padding=(1, 2)))
             
-            # Fundamental analysis
-            fundamental_task = progress.add_task("💰 Step 2: Fundamental Analysis - Financials & valuation...", total=None)
+            # Activities analysis
+            activities_task = progress.add_task("🎭 Step 2: Activities Recommender - Finding fun things to do...", total=None)
             step_start_time = time.time()
             
-            # Execute fundamental analysis
-            fundamental_prompt = f"Provide a fundamental analysis for {investment}. Focus on financial health, valuation metrics, growth prospects, and competitive position. Include a clear fundamental rating at the end."
-            fundamental_result = self.fundamental_analyst["chain"].invoke({"input": fundamental_prompt})
+            # Execute activities analysis
+            activities_prompt = f"Provide recommendations for activities, attractions and things to do in {destination}. Include must-see landmarks, experiences, hidden gems, and options for different interests. Give an overall activities rating."
+            activities_result = self.activities_recommender["chain"].invoke({"input": activities_prompt})
             
             # Update progress
-            fundamental_time = time.time() - step_start_time
-            progress.update(fundamental_task, completed=True)
+            activities_time = time.time() - step_start_time
+            progress.update(activities_task, completed=True)
             progress.update(overall_task, advance=1)
             
-            # Display fundamental analysis preview
-            console.print("\n[cyan]Fundamental Analysis:[/cyan]")
-            console.print(Panel(fundamental_result.content[:250] + "...", 
-                              title="[bold]Fundamental Analysis (Preview)[/bold]", 
+            # Display activities analysis preview
+            console.print("\n[cyan]Activities Recommendations:[/cyan]")
+            console.print(Panel(activities_result.content[:200] + "...", 
+                              title="[bold]🎭 Things To Do (Preview)[/bold]", 
                               border_style="cyan",
                               padding=(1, 2)))
             
-            # Sentiment analysis
-            sentiment_task = progress.add_task("🎭 Step 3: Sentiment Analysis - Market mood & psychology...", total=None)
+            # Local expert analysis
+            local_task = progress.add_task("🧠 Step 3: Local Expert - Sharing insider knowledge...", total=None)
             step_start_time = time.time()
             
-            # Execute sentiment analysis
-            sentiment_prompt = f"Provide a sentiment analysis for {investment}. Focus on investor psychology, news impact, media coverage, and market mood. Include a clear sentiment rating at the end."
-            sentiment_result = self.sentiment_analyst["chain"].invoke({"input": sentiment_prompt})
+            # Execute local expert analysis
+            local_prompt = f"Provide local expert advice for a vacation to {destination}. Focus on best times to visit, local customs, getting around, safety tips, and common tourist mistakes to avoid. Include a best time to visit recommendation."
+            local_result = self.local_expert["chain"].invoke({"input": local_prompt})
             
             # Update progress
-            sentiment_time = time.time() - step_start_time
-            progress.update(sentiment_task, completed=True)
+            local_time = time.time() - step_start_time
+            progress.update(local_task, completed=True)
             progress.update(overall_task, advance=1)
             
-            # Display sentiment analysis preview
-            console.print("\n[cyan]Sentiment Analysis:[/cyan]")
-            console.print(Panel(sentiment_result.content[:250] + "...", 
-                              title="[bold]Sentiment Analysis (Preview)[/bold]", 
-                              border_style="cyan",
-                              padding=(1, 2)))
-            
-            # Risk assessment
-            risk_task = progress.add_task("⚠️  Step 4: Risk Assessment - Downside scenarios & mitigation...", total=None)
-            step_start_time = time.time()
-            
-            # Execute risk assessment
-            risk_prompt = f"Provide a risk assessment for {investment}. Focus on potential downside scenarios, risk factors, and mitigation strategies. Include a clear risk rating at the end."
-            risk_result = self.risk_analyst["chain"].invoke({"input": risk_prompt})
-            
-            # Update progress
-            risk_time = time.time() - step_start_time
-            progress.update(risk_task, completed=True)
-            progress.update(overall_task, advance=1)
-            
-            # Display risk assessment preview
-            console.print("\n[cyan]Risk Assessment:[/cyan]")
-            console.print(Panel(risk_result.content[:250] + "...", 
-                              title="[bold]Risk Assessment (Preview)[/bold]", 
+            # Display local expert analysis preview
+            console.print("\n[cyan]Local Expert Insights:[/cyan]")
+            console.print(Panel(local_result.content[:200] + "...", 
+                              title="[bold]🧠 Insider Knowledge (Preview)[/bold]", 
                               border_style="cyan",
                               padding=(1, 2)))
             
             # Synthesis phase
-            synthesis_task = progress.add_task("🔄 Step 5: Synthesis - Building consensus recommendation...", total=None)
+            synthesis_task = progress.add_task("✨ Step 4: Vacation Planner - Creating your perfect trip plan...", total=None)
             step_start_time = time.time()
             
             # Execute synthesis
             synthesis_prompt = f"""
-            Synthesize the following analyses for {investment} into a comprehensive investment recommendation:
+            Synthesize the following analyses for a vacation to {destination} into a comprehensive vacation recommendation:
             
-            ## TECHNICAL ANALYSIS:
-            {technical_result.content}
+            ## BUDGET ANALYSIS:
+            {budget_result.content}
             
-            ## FUNDAMENTAL ANALYSIS:
-            {fundamental_result.content}
+            ## ACTIVITIES RECOMMENDATIONS:
+            {activities_result.content}
             
-            ## SENTIMENT ANALYSIS:
-            {sentiment_result.content}
+            ## LOCAL EXPERT INSIGHTS:
+            {local_result.content}
             
-            ## RISK ASSESSMENT:
-            {risk_result.content}
-            
-            Provide a balanced synthesis that considers all perspectives. Include overall investment rating, target price (if applicable), timeframe, and key rationale.
+            Create a friendly, helpful vacation plan that considers all perspectives. Include overall rating, ideal duration, best time to visit, budget expectations, top activities, and key planning tips.
             """
             
-            final_recommendation = self.synthesizer["chain"].invoke({"input": synthesis_prompt})
+            final_recommendation = self.vacation_planner["chain"].invoke({"input": synthesis_prompt})
             
             # Update progress
             synthesis_time = time.time() - step_start_time
             progress.update(synthesis_task, completed=True)
             progress.update(overall_task, advance=1)
         
-        # Display the comprehensive analysis
+        # Display the comprehensive vacation plan
         try:
             recommendation_content = Markdown(final_recommendation.content)
             recommendation_panel = Panel(
                 recommendation_content,
-                title="[bold green]📋 Comprehensive Investment Recommendation[/bold green]",
+                title="[bold green]✈️ Your Personalized Vacation Plan[/bold green]",
                 border_style="green",
                 padding=(1, 2)
             )
@@ -347,12 +305,28 @@ class CollaboratePatternDemo:
             # Fallback to plain text
             recommendation_panel = Panel(
                 final_recommendation.content,
-                title="[bold green]📋 Comprehensive Investment Recommendation[/bold green]",
+                title="[bold green]✈️ Your Personalized Vacation Plan[/bold green]",
                 border_style="green",
                 padding=(1, 2)
             )
             
         console.print(recommendation_panel)
+        
+        # Show pattern explanation
+        console.print()
+        explanation_panel = Panel(
+            "[bold]What just happened?[/bold]\n\n"
+            "This demo showed the [bold cyan]Collaborate Pattern[/bold cyan] in action:\n\n"
+            "1️⃣ Multiple specialized agents analyzed the [bold]same problem[/bold] at the same time\n"
+            "2️⃣ Each agent focused on their specific area of expertise\n"
+            "3️⃣ All analyses happened [bold]in parallel[/bold] (not sequential)\n"
+            "4️⃣ A synthesizer agent combined all perspectives into a final recommendation\n\n"
+            "[dim]This pattern is great when you need multiple perspectives on the same problem![/dim]",
+            title="[bold magenta]Collaborate Pattern Explained[/bold magenta]",
+            border_style="magenta",
+            padding=(1, 2)
+        )
+        console.print(explanation_panel)
         
         # Show performance metrics
         console.print()
@@ -360,21 +334,16 @@ class CollaboratePatternDemo:
         metrics_table.add_column("Metric", style="dim")
         metrics_table.add_column("Value", style="bold")
         
-        total_time = technical_time + fundamental_time + sentiment_time + risk_time + synthesis_time
-        metrics_table.add_row("⏱️  Total Analysis Time:", f"{total_time:.2f} seconds")
-        metrics_table.add_row("📈 Technical Analysis:", f"{technical_time:.2f} seconds")
-        metrics_table.add_row("💰 Fundamental Analysis:", f"{fundamental_time:.2f} seconds")
-        metrics_table.add_row("🎭 Sentiment Analysis:", f"{sentiment_time:.2f} seconds")
-        metrics_table.add_row("⚠️  Risk Assessment:", f"{risk_time:.2f} seconds")
-        metrics_table.add_row("🔄 Synthesis Phase:", f"{synthesis_time:.2f} seconds")
-        metrics_table.add_row("🎯 Pattern Used:", "Collaborate (Parallel + Consensus)")
-        metrics_table.add_row("🤖 Analysts Involved:", "5 (Technical, Fundamental, Sentiment, Risk, Lead Strategist)")
+        total_time = budget_time + activities_time + local_time + synthesis_time
+        metrics_table.add_row("⏱️  Total Planning Time:", f"{total_time:.2f} seconds")
+        metrics_table.add_row("💰 Budget Analysis:", f"{budget_time:.2f} seconds")
+        metrics_table.add_row("🎭 Activities Recommendations:", f"{activities_time:.2f} seconds")
+        metrics_table.add_row("🧠 Local Expert Insights:", f"{local_time:.2f} seconds")
+        metrics_table.add_row("✨ Plan Creation:", f"{synthesis_time:.2f} seconds")
+        metrics_table.add_row("👥 Team Members:", "4 (Budget, Activities, Local Expert, Vacation Planner)")
         
         console.print(metrics_table)
         console.print()
-        
-        console.print("[dim]This pattern shows how multiple specialized agents can analyze a problem in parallel,[/dim]")
-        console.print("[dim]then combine their insights to reach a more robust, comprehensive conclusion.[/dim]")
 
 def main():
     """Main function to run the Collaborate Pattern demo"""
@@ -388,13 +357,13 @@ def main():
     try:
         demo = CollaboratePatternDemo()
         demo.display_header()
-        demo.display_analysts()
+        demo.display_team()
         
-        # Demonstrate with a single, predefined investment
-        investment = "Apple Inc. (AAPL) - Technology giant with diverse product portfolio"
-        console.print("[bold]Demonstrating Collaborate Pattern with Investment Analysis Panel[/bold]\n")
+        # Demonstrate with a single, predefined destination
+        destination = "Kyoto, Japan - Historic city with temples and traditional culture"
+        console.print("[bold]Demonstrating Collaborate Pattern with Vacation Planning[/bold]\n")
         
-        demo.demonstrate_collaboration(investment)
+        demo.demonstrate_collaboration(destination)
         
         console.print("\n[bold green]Collaborate Pattern Demo Complete![/bold green]")
     

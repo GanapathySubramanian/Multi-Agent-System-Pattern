@@ -13,9 +13,7 @@ class PresentationCarousel {
             'route',
             'coordinate', 
             'collaborate',
-            'competitive',
             'loop',
-            'aggregator',
             'network',
             'hierarchical'
         ];
@@ -24,10 +22,9 @@ class PresentationCarousel {
             'profile': 'About the Presenter',
             'route': 'Route Pattern - Smart Language Router',
             'coordinate': 'Coordinate Pattern - Content Creation Workflow',
-            'collaborate': 'Collaborate Pattern - Research Panel Discussion',
+            'collaborate': 'Collaborate Pattern - Vacation Planner',
             'competitive': 'Competitive Pattern - Task Auction System',
             'loop': 'Loop Pattern - Essay Improvement System',
-            'aggregator': 'Aggregator Pattern - Weather Forecast System',
             'network': 'Network Pattern - Party Planning Committee',
             'hierarchical': 'Hierarchical Pattern - Software Development Team'
         };
@@ -39,7 +36,6 @@ class PresentationCarousel {
             'collaborate': 'All team members respond simultaneously, then the coordinator synthesizes into a consensus.',
             'competitive': 'Agents compete by submitting bids, and the best offer wins the task.',
             'loop': 'Agents keep repeating and improving work based on feedback until the output is good enough.',
-            'aggregator': 'Multiple data sources provide inputs that are merged into one final result by a central aggregator.',
             'network': 'Agents freely communicate with each other in a web-like structure, making group decisions.',
             'hierarchical': 'Higher-level agents manage and assign tasks to lower-level agents, like managers and employees.'
         };
@@ -83,8 +79,6 @@ class PresentationCarousel {
         demoContainer.className = 'demo-container';
         demoContainer.innerHTML = `
             <div class="intro-content">
-                <h3>Today's Webinar Agenda</h3>
-                
                 <div class="intro-section">
                     <h4>What Are Multi-Agent Systems?</h4>
                     <p>A multi-agent system is a group of AI agents working together to solve problems that are difficult or impossible for a single agent to solve.</p>
@@ -96,14 +90,12 @@ class PresentationCarousel {
                 </div>
                 
                 <div class="intro-section">
-                    <h4>8 Key Multi-Agent Patterns</h4>
+                    <h4>6 Key Multi-Agent Patterns</h4>
                     <ol>
                         <li><strong>Route Pattern</strong>: Directing tasks to specialists</li>
                         <li><strong>Coordinate Pattern</strong>: Sequential workflows</li>
                         <li><strong>Collaborate Pattern</strong>: Parallel problem-solving</li>
-                        <li><strong>Competitive Pattern</strong>: Contest-based selection</li>
                         <li><strong>Loop Pattern</strong>: Iterative improvement</li>
-                        <li><strong>Aggregator Pattern</strong>: Multi-source data integration</li>
                         <li><strong>Network Pattern</strong>: Web-like communication</li>
                         <li><strong>Hierarchical Pattern</strong>: Manager-worker structure</li>
                     </ol>
@@ -112,12 +104,6 @@ class PresentationCarousel {
                 <div class="intro-section">
                     <h4>Interactive Demos</h4>
                     <p>Each pattern includes a live demonstration showing how agents interact.</p>
-                </div>
-                
-                <div class="intro-section">
-                    <h4>Navigation Instructions</h4>
-                    <p>Use the arrow buttons or your keyboard's arrow keys to navigate between patterns.</p>
-                    <p>Press 'F' for fullscreen mode.</p>
                 </div>
             </div>
         `;

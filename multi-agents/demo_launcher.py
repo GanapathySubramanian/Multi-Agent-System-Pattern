@@ -16,9 +16,7 @@ try:
     from route_pattern_demo import RoutePatternDemo
     from coordinate_pattern_demo import CoordinatePatternDemo
     from collaborate_pattern_demo import CollaboratePatternDemo
-    from competitive_pattern_demo import CompetitivePatternDemo
     from loop_pattern_demo import LoopPatternDemo
-    from aggregator_pattern_demo import AggregatorPatternDemo
     from network_pattern_demo import NetworkPatternDemo
     from hierarchical_pattern_demo import HierarchicalPatternDemo
 except ImportError as e:
@@ -51,9 +49,7 @@ def display_patterns():
         ("route", "Routes tasks to specialized agents based on task characteristics", "Multilingual Support Router"),
         ("coordinate", "Sequential agent workflow with handoffs between specialists", "Content Creation Pipeline"),
         ("collaborate", "Multiple agents working simultaneously on sub-parts of a problem", "Expert Research Panel"),
-        ("competitive", "Agents compete to provide the best solution", "Freelancer Bidding System"),
         ("loop", "Iterative improvement through multiple feedback cycles", "Essay Improvement System"),
-        ("aggregator", "Collects and synthesizes information from multiple sources", "Weather Forecast System"),
         ("network", "Agents communicate directly with each other in a web", "Party Planning Committee"),
         ("hierarchical", "Agents organized in management structure with authority levels", "Corporate Decision Making")
     ]
@@ -86,24 +82,8 @@ def launch_demo(pattern):
     try:
         if pattern == "route":
             console.print("[bold cyan]Launching Route Pattern Demo...[/bold cyan]")
-            demo = RoutePatternDemo()
-            demo.display_header()
-            demo.display_agents()
-            
-            console.print("[bold]Demonstrating Route Pattern with Different Languages[/bold]\n")
-            
-            # English example
-            demo.demonstrate_routing("How can I reset my password? I can't log into my account.")
-            console.print("\n" + "="*80 + "\n")
-            
-            # Spanish example
-            demo.demonstrate_routing("¿Cómo puedo restablecer mi contraseña? No puedo iniciar sesión en mi cuenta.")
-            console.print("\n" + "="*80 + "\n")
-            
-            # French example
-            demo.demonstrate_routing("Comment puis-je réinitialiser mon mot de passe? Je ne peux pas me connecter à mon compte.")
-            
-            console.print("\n[bold green]Route Pattern Demo Complete![/bold green]")
+            from route_pattern_demo import main as route_main
+            route_main()
             
         elif pattern == "coordinate":
             console.print("[bold cyan]Launching Coordinate Pattern Demo...[/bold cyan]")
@@ -114,11 +94,6 @@ def launch_demo(pattern):
             console.print("[bold cyan]Launching Collaborate Pattern Demo...[/bold cyan]")
             from collaborate_pattern_demo import main as collaborate_main
             collaborate_main()
-            
-        elif pattern == "competitive":
-            console.print("[bold cyan]Launching Competitive Pattern Demo...[/bold cyan]")
-            from competitive_pattern_demo import main as competitive_main
-            competitive_main()
             
         elif pattern == "loop":
             console.print("[bold cyan]Launching Loop Pattern Demo...[/bold cyan]")
@@ -132,20 +107,6 @@ def launch_demo(pattern):
             demo.demonstrate_loop_pattern("The impact of artificial intelligence on modern society")
             
             console.print("\n[bold green]Loop Pattern Demo Complete![/bold green]")
-            
-        elif pattern == "aggregator":
-            console.print("[bold cyan]Launching Aggregator Pattern Demo...[/bold cyan]")
-            demo = AggregatorPatternDemo()
-            demo.display_header()
-            demo.display_agents()
-            
-            console.print("[bold]Demonstrating Aggregator Pattern with Weather Forecasting[/bold]\n")
-            
-            # Weather forecast example
-            demo.demonstrate_aggregator_pattern("New York City", "July 15, 2025")
-            
-            console.print("\n[bold green]Aggregator Pattern Demo Complete![/bold green]")
-            
         elif pattern == "network":
             console.print("[bold cyan]Launching Network Pattern Demo...[/bold cyan]")
             demo = NetworkPatternDemo()
@@ -204,8 +165,8 @@ def main():
     
     parser = argparse.ArgumentParser(description="Launch Multi-Agent Pattern Demos")
     parser.add_argument('pattern', nargs='?', choices=[
-        'route', 'coordinate', 'collaborate', 'competitive', 
-        'loop', 'aggregator', 'network', 'hierarchical', 'all'
+        'route', 'coordinate', 'collaborate', 
+        'loop', 'network', 'hierarchical', 'all'
     ], help="The pattern demo to run")
     args = parser.parse_args()
     
@@ -215,14 +176,14 @@ def main():
         display_patterns()
         console.print("To run a demo, use: python demo_launcher.py [pattern]")
         console.print("Example: python demo_launcher.py route")
-        console.print("Available patterns: route, coordinate, collaborate, competitive, loop, aggregator, network, hierarchical, all")
+        console.print("Available patterns: route, coordinate, collaborate, loop, network, hierarchical, all")
         return
         
     if not check_credentials():
         return
         
     if args.pattern == "all":
-        patterns = ['route', 'coordinate', 'collaborate', 'competitive', 'loop', 'aggregator', 'network', 'hierarchical']
+        patterns = ['route', 'coordinate', 'collaborate', 'loop', 'network', 'hierarchical']
         for pattern in patterns:
             console.print(f"\n[bold blue]{'=' * 40}[/bold blue]")
             console.print(f"[bold blue]Running {pattern.upper()} pattern demo[/bold blue]")

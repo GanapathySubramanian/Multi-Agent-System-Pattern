@@ -24,7 +24,6 @@ class MultiAgentDemo {
         this.setupPatternWithErrorHandling('setupCollaboratePattern');
         this.setupPatternWithErrorHandling('setupCompetitivePattern');
         this.setupPatternWithErrorHandling('setupLoopPattern');
-        this.setupPatternWithErrorHandling('setupAggregatorPattern');
         this.setupPatternWithErrorHandling('setupNetworkPattern');
         this.setupPatternWithErrorHandling('setupHierarchicalPattern');
         
@@ -317,34 +316,48 @@ class MultiAgentDemo {
 
     // Collaborate Pattern Implementation
     setupCollaboratePattern() {
+        console.log("Setting up Collaborate Pattern...");
         const questionButtons = document.querySelectorAll('.collaborate-question-btn');
         const collaborateInput = document.getElementById('collaborate-input');
         const collaborateSubmit = document.getElementById('collaborate-submit');
 
+        console.log(`Found ${questionButtons.length} question buttons for collaborate pattern`);
+        
+        // Force reinitialize event listeners
         questionButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const question = btn.dataset.question;
+            // Remove any existing click listeners
+            const newBtn = btn.cloneNode(true);
+            if (btn.parentNode) {
+                btn.parentNode.replaceChild(newBtn, btn);
+            }
+            
+            // Add click listener
+            newBtn.addEventListener('click', () => {
+                const question = newBtn.dataset.question;
+                console.log(`Collaborate button clicked with question: ${question}`);
                 this.demonstrateCollaboration(question);
             });
         });
 
-        collaborateSubmit.addEventListener('click', () => {
-            const question = collaborateInput.value.trim();
-            if (question) {
-                this.demonstrateCollaboration(question);
-                collaborateInput.value = '';
-            }
-        });
+        if (collaborateInput && collaborateSubmit) {
+            collaborateSubmit.addEventListener('click', () => {
+                const question = collaborateInput.value.trim();
+                if (question) {
+                    this.demonstrateCollaboration(question);
+                    collaborateInput.value = '';
+                }
+            });
 
-        collaborateInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                collaborateSubmit.click();
-            }
-        });
+            collaborateInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    collaborateSubmit.click();
+                }
+            });
+        }
     }
 
     async demonstrateCollaboration(question) {
-        const panelists = ['reddit-researcher', 'academic-researcher', 'twitter-researcher', 'hackernews-researcher'];
+        const panelists = ['reddit-researcher', 'academic-researcher', 'twitter-researcher'];
         const resultBox = document.getElementById('collaborate-result');
         const synthesisProgress = document.getElementById('synthesis-progress');
 
@@ -409,87 +422,124 @@ class MultiAgentDemo {
 
     generateCollaborativeResponses(question) {
         const responseTemplates = {
-            'What is the best way to learn programming?': [
-                'Reddit: Community recommends starting with Python, joining r/learnprogramming, and building projects.',
-                'Academic: Structured CS courses, algorithm fundamentals, and theoretical understanding are crucial.',
-                'Twitter: Follow coding influencers, participate in #100DaysOfCode, and engage with tech Twitter.',
-                'HackerNews: Focus on practical projects, read others\' code, and contribute to open source.'
+            'Provide a complete vacation analysis for Kyoto, Japan - Historic city with temples and traditional culture': [
+                '💰 Budget Advisor: Moderate to expensive destination. Flight costs from major cities range $800-1,500. Accommodations $100-300/night. Food $30-70/person/day. Public transportation efficient and affordable at $10/day. Save money with city passes and eating at local spots.',
+                '🎭 Activities Recommender: Must-visit Fushimi Inari Shrine, Kinkaku-ji Temple, Arashiyama Bamboo Grove, and Gion District. Experience tea ceremony, traditional Japanese gardens, and seasonal festivals. Consider day trips to Nara or Osaka. Outstanding variety of cultural experiences.',
+                '🧠 Local Expert: Best time to visit March-May (cherry blossoms) or October-November (autumn colors). Very crowded during these periods. Respectful dress required at temples. Learn basic Japanese phrases. Public transportation excellent with IC cards recommended. Tipping not customary.'
             ],
-            'How will AI impact jobs in the next 5 years?': [
-                'Reddit: Mixed opinions - some fear job loss, others see new opportunities in AI-adjacent roles.',
-                'Academic: Research shows job displacement in routine tasks, but creation of new technical roles.',
-                'Twitter: Industry leaders predict transformation rather than replacement, emphasis on reskilling.',
-                'HackerNews: Tech workers discuss AI as a tool for productivity, not replacement for creativity.'
+            'Provide a complete vacation analysis for Paris, France - City of lights and culture': [
+                '💰 Budget Advisor: High-cost destination. Flight costs from major cities range $600-1,200. Accommodations $150-400/night. Food $40-100/person/day. Public transportation excellent at $15/day with visitor passes. Save by visiting museums on free days and staying outside central arrondissements.',
+                '🎭 Activities Recommender: Must-see Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, and Montmartre. Experience Seine River cruise, café culture, and local markets. Hidden gems include Canal Saint-Martin and covered passages. Outstanding variety of cultural and culinary experiences.',
+                '🧠 Local Expert: Best time to visit April-June or September-October for mild weather and fewer tourists. Summer is crowded with long lines. Basic French phrases appreciated. Metro system comprehensive but watch for pickpockets. Most attractions closed on certain weekdays, plan accordingly.'
             ],
-            'What are the most promising renewable energy technologies?': [
-                'Reddit: Solar and wind dominate discussions, with growing interest in battery storage solutions.',
-                'Academic: Peer-reviewed research highlights perovskite solar cells and offshore wind advances.',
-                'Twitter: Industry updates on grid-scale batteries, green hydrogen, and smart grid technologies.',
-                'HackerNews: Technical discussions on energy efficiency, nuclear fusion progress, and grid integration.'
+            'Provide a complete vacation analysis for Hawaii - Tropical island paradise': [
+                '💰 Budget Advisor: Expensive destination. Flight costs from mainland US range $400-1,000. Accommodations $200-500/night. Food $50-100/person/day. Car rental recommended at $50-100/day. Save with condo rentals with kitchens and shopping at local markets instead of resort dining.',
+                '🎭 Activities Recommender: Must-experience beaches like Waikiki, North Shore, and Kaanapali. Activities include snorkeling at Molokini Crater, hiking Diamond Head, Road to Hana drive, and authentic luaus. Adventure options include surfing lessons, whale watching, and volcano tours.',
+                '🧠 Local Expert: Best time to visit April-May or September-October for great weather and fewer crowds. December-March offers whale watching but can bring rain. Respect local customs and environment. Island hopping requires planning. Sunscreen must be reef-safe by law.'
             ],
-            'How can we improve remote work productivity?': [
-                'Reddit: Focus on dedicated workspace, time management tools, and work-life boundaries.',
-                'Academic: Studies emphasize communication protocols, team cohesion, and mental health support.',
-                'Twitter: Productivity experts share tips on async communication and digital wellness.',
-                'HackerNews: Technical solutions like better collaboration tools and automation for routine tasks.'
+            'Provide a complete vacation analysis for New York City - Urban adventure destination': [
+                '💰 Budget Advisor: Very expensive destination. Flight costs vary widely $200-1,000. Accommodations $200-500/night. Food $50-150/person/day. Subway excellent at $33 for weekly unlimited pass. Save with tourist passes, free museum days, and staying in outer boroughs like Queens or Brooklyn.',
+                '🎭 Activities Recommender: Must-visit Times Square, Central Park, Empire State Building, and Metropolitan Museum of Art. Experience Broadway shows, diverse neighborhoods, and ferry to Statue of Liberty. Hidden gems include High Line, Roosevelt Island Tramway, and food markets.',
+                '🧠 Local Expert: Best times to visit May-June or September-October for pleasant weather. December offers holiday magic but cold temperatures. Summer is hot and humid. Walk fast, stand right on escalators. Tipping expected (18-20%). Subway runs 24/7 but weekend service changes common.'
             ]
         };
 
         return responseTemplates[question] || [
-            'Reddit: Community discussions provide diverse perspectives and practical experiences.',
-            'Academic: Scholarly research offers evidence-based insights and theoretical frameworks.',
-            'Twitter: Real-time trends and expert opinions from industry leaders and influencers.',
-            'HackerNews: Technical community shares implementation details and innovative approaches.'
+            '💰 Budget Advisor: Analysis of typical costs including flights, accommodations, food, activities, and local transportation. Recommendations for saving money while enjoying the destination.',
+            '🎭 Activities Recommender: Suggestions for must-see attractions, experiences, and hidden gems. Overview of available activities and their appeal to different interests.',
+            '🧠 Local Expert: Insights on best times to visit, local customs, transportation tips, and common tourist mistakes to avoid. Practical advice for an authentic experience.'
         ];
     }
 
     synthesizeResponses(question, responses) {
         const syntheses = {
-            'What is the best way to learn programming?': `
-                <h4>Consensus: Multi-Modal Learning Approach</h4>
-                <p><strong>Key Findings:</strong> All sources agree that effective programming education requires combining multiple approaches:</p>
+            'Provide a complete vacation analysis for Kyoto, Japan - Historic city with temples and traditional culture': `
+                <h4>✈️ Your Personalized Kyoto Vacation Plan</h4>
+                <p><strong>Overall Rating:</strong> Perfect Match for cultural exploration and authentic Japanese experience</p>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                    <div style="flex: 1; min-width: 150px; margin-right: 10px;">
+                        <p><strong>Best Time to Visit:</strong> Late March-April (cherry blossoms) or November (autumn colors)</p>
+                        <p><strong>Ideal Trip Duration:</strong> 5-7 days</p>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <p><strong>Budget Expectations:</strong> $2,500-4,000 per person for one week</p>
+                        <p><strong>Crowd Levels:</strong> Moderate to high during peak seasons</p>
+                    </div>
+                </div>
+                <p><strong>Must-Do Experiences:</strong></p>
                 <ul>
-                    <li><strong>Foundation:</strong> Start with beginner-friendly languages (Python) and structured learning</li>
-                    <li><strong>Community:</strong> Engage with programming communities for support and motivation</li>
-                    <li><strong>Practice:</strong> Build real projects and contribute to open source</li>
-                    <li><strong>Theory:</strong> Understand fundamental concepts and algorithms</li>
+                    <li>Fushimi Inari Shrine (iconic red gates)</li>
+                    <li>Arashiyama Bamboo Grove (early morning to avoid crowds)</li>
+                    <li>Traditional tea ceremony experience</li>
+                    <li>Day trip to Nara to see friendly deer and temples</li>
+                    <li>Gion district for geisha spotting and traditional atmosphere</li>
                 </ul>
-                <p><em>Recommendation:</em> Combine formal education with community engagement and hands-on project building for optimal learning outcomes.</p>
+                <p><strong>Pro Tips:</strong> Purchase a 1-day bus pass for efficient sightseeing. Respect temple dress codes. Consider staying in a ryokan for at least one night for an authentic experience. Use IC cards for convenient public transportation.</p>
             `,
-            'How will AI impact jobs in the next 5 years?': `
-                <h4>Consensus: Transformation, Not Elimination</h4>
-                <p><strong>Key Findings:</strong> Despite varied perspectives, all sources point to job transformation rather than wholesale replacement:</p>
+            'Provide a complete vacation analysis for Paris, France - City of lights and culture': `
+                <h4>✈️ Your Personalized Paris Vacation Plan</h4>
+                <p><strong>Overall Rating:</strong> Perfect Match for art lovers, foodies, and romantics</p>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                    <div style="flex: 1; min-width: 150px; margin-right: 10px;">
+                        <p><strong>Best Time to Visit:</strong> April-June or September-October</p>
+                        <p><strong>Ideal Trip Duration:</strong> 5-7 days</p>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <p><strong>Budget Expectations:</strong> $3,000-4,500 per person for one week</p>
+                        <p><strong>Crowd Levels:</strong> High year-round, extreme in summer</p>
+                    </div>
+                </div>
+                <p><strong>Must-Do Experiences:</strong></p>
                 <ul>
-                    <li><strong>Displacement:</strong> Routine and repetitive tasks will be automated</li>
-                    <li><strong>Creation:</strong> New roles in AI development, maintenance, and oversight will emerge</li>
-                    <li><strong>Enhancement:</strong> AI will augment human capabilities rather than replace them</li>
-                    <li><strong>Reskilling:</strong> Continuous learning and adaptation will be essential</li>
+                    <li>Louvre Museum (book tickets online in advance)</li>
+                    <li>Eiffel Tower (consider dinner reservation or summit visit)</li>
+                    <li>Seine River cruise at sunset</li>
+                    <li>Explore Montmartre neighborhood and Sacré-Cœur</li>
+                    <li>Morning visit to a local bakery and café experience</li>
                 </ul>
-                <p><em>Recommendation:</em> Focus on developing uniquely human skills (creativity, emotional intelligence, complex problem-solving) while gaining AI literacy.</p>
+                <p><strong>Pro Tips:</strong> Purchase a Paris Museum Pass for best value. Learn basic French phrases. Metro is fastest transportation but walking offers the best views. Stay in Le Marais or Saint-Germain-des-Prés neighborhoods for central location with character.</p>
             `,
-            'What are the most promising renewable energy technologies?': `
-                <h4>Consensus: Diversified Clean Energy Portfolio</h4>
-                <p><strong>Key Findings:</strong> Multiple renewable technologies show promise for different applications:</p>
+            'Provide a complete vacation analysis for Hawaii - Tropical island paradise': `
+                <h4>✈️ Your Personalized Hawaii Vacation Plan</h4>
+                <p><strong>Overall Rating:</strong> Perfect Match for beach lovers, outdoor enthusiasts, and relaxation seekers</p>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                    <div style="flex: 1; min-width: 150px; margin-right: 10px;">
+                        <p><strong>Best Time to Visit:</strong> April-May or September-October</p>
+                        <p><strong>Ideal Trip Duration:</strong> 7-10 days</p>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <p><strong>Budget Expectations:</strong> $3,500-5,000 per person for one week</p>
+                        <p><strong>Crowd Levels:</strong> Highest during summer and Christmas season</p>
+                    </div>
+                </div>
+                <p><strong>Must-Do Experiences:</strong></p>
                 <ul>
-                    <li><strong>Solar:</strong> Continued cost reductions and efficiency improvements, especially perovskite cells</li>
-                    <li><strong>Wind:</strong> Offshore wind expansion and larger, more efficient turbines</li>
-                    <li><strong>Storage:</strong> Battery technology advances crucial for grid stability</li>
-                    <li><strong>Emerging:</strong> Green hydrogen and fusion research showing potential</li>
+                    <li>Snorkeling at Molokini Crater or Hanauma Bay</li>
+                    <li>Road to Hana scenic drive (Maui)</li>
+                    <li>Authentic luau experience</li>
+                    <li>Hawaii Volcanoes National Park (Big Island)</li>
+                    <li>North Shore beaches for surfing or spectating (Oahu)</li>
                 </ul>
-                <p><em>Recommendation:</em> Invest in a diversified portfolio of renewable technologies with strong emphasis on energy storage and grid modernization.</p>
+                <p><strong>Pro Tips:</strong> Consider island hopping but don't try to see too many islands in one trip. Rent a car for flexibility. Condo rentals offer best value for longer stays. Use reef-safe sunscreen only. Respect local customs and environment.</p>
             `
         };
 
         return syntheses[question] || `
-            <h4>Consensus: Comprehensive Analysis</h4>
-            <p><strong>Key Findings:</strong> Our research panel has identified several important themes:</p>
-            <ul>
-                <li><strong>Community Perspective:</strong> ${responses[0]}</li>
-                <li><strong>Academic Insight:</strong> ${responses[1]}</li>
-                <li><strong>Industry Trends:</strong> ${responses[2]}</li>
-                <li><strong>Technical Analysis:</strong> ${responses[3]}</li>
-            </ul>
-            <p><em>Synthesis:</em> The convergence of these perspectives suggests a nuanced approach that balances practical implementation with theoretical understanding and community engagement.</p>
+            <h4>✈️ Your Personalized Vacation Plan</h4>
+            <p><strong>Destination Analysis Complete!</strong></p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                <div style="flex: 1; min-width: 150px; margin-right: 10px;">
+                    <p><strong>Budget Considerations:</strong></p>
+                    <p>${responses[0].split(':')[1] || 'Analysis of costs including accommodations, food, and activities.'}</p>
+                </div>
+                <div style="flex: 1; min-width: 150px;">
+                    <p><strong>Recommended Activities:</strong></p>
+                    <p>${responses[1].split(':')[1] || 'Suggestions for attractions and experiences.'}</p>
+                </div>
+            </div>
+            <p><strong>Local Insights:</strong></p>
+            <p>${responses[2].split(':')[1] || 'Tips on timing, customs, and local knowledge.'}</p>
+            <p><strong>Vacation Recommendation:</strong> Based on our analysis, this destination offers a compelling mix of experiences, with considerations for your budget and preferences. Plan according to the best timing and don't miss the top recommended activities!</p>
         `;
     }
 
@@ -860,99 +910,7 @@ class MultiAgentDemo {
             <p>As our understanding continues to evolve, ongoing research, dialogue, and critical thinking will be essential to navigating the complexities of ${topic} and realizing its potential benefits while mitigating potential risks.</p>
         `;
     }
-    
-    // Aggregator Pattern Implementation
-    setupAggregatorPattern() {
-        console.log("Setting up Aggregator Pattern...");
-        const locationButtons = document.querySelectorAll('#aggregator-pattern .aggregator-location-btn');
-        const aggregatorInput = document.getElementById('aggregator-input');
-        const aggregatorSubmit = document.getElementById('aggregator-submit');
-
-        locationButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const location = btn.dataset.location;
-                this.demonstrateAggregation(location);
-            });
-        });
-
-        if (aggregatorInput && aggregatorSubmit) {
-            aggregatorInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    aggregatorSubmit.click();
-                }
-            });
-            
-            aggregatorSubmit.addEventListener('click', () => {
-                const location = aggregatorInput.value.trim();
-                if (location) {
-                    this.demonstrateAggregation(location);
-                    aggregatorInput.value = '';
-                }
-            });
-        }
-    }
-
-    async demonstrateAggregation(location) {
-        const sourceA = document.getElementById('source-a') || document.querySelector('[id="source-a"]');
-        const sourceB = document.getElementById('source-b') || document.querySelector('[id="source-b"]');
-        const sourceC = document.getElementById('source-c') || document.querySelector('[id="source-c"]');
-        const tempValue = document.getElementById('temp-value') || document.querySelector('[id="temp-value"]');
-        const precipValue = document.getElementById('precip-value') || document.querySelector('[id="precip-value"]');
-        const windValue = document.getElementById('wind-value') || document.querySelector('[id="wind-value"]');
-        const forecastResult = document.getElementById('forecast-result') || document.querySelector('[id="forecast-result"]');
-        const resultBox = document.getElementById('aggregator-result') || document.querySelector('[id="aggregator-result"]');
-        
-        if (!sourceA || !sourceB || !sourceC || !tempValue || !precipValue || !windValue || !forecastResult || !resultBox) {
-            console.warn('Aggregator pattern elements not found');
-            return;
-        }
-        
-        // Reset all sources
-        [sourceA, sourceB, sourceC].forEach(source => {
-            source.classList.remove('active');
-        });
-        
-        tempValue.textContent = '--°C';
-        precipValue.textContent = '--mm';
-        windValue.textContent = '--km/h';
-        forecastResult.textContent = 'Aggregating data...';
-        resultBox.textContent = 'Gathering weather data...';
-        resultBox.className = 'result-box';
-        
-        // Generate weather data based on location
-        const weatherData = this.generateWeatherData(location);
-        
-        // Activate sources one by one
-        await this.delay(500);
-        sourceA.classList.add('active');
-        tempValue.textContent = `${weatherData.temperature}°C`;
-        
-        await this.delay(1000);
-        sourceB.classList.add('active');
-        precipValue.textContent = `${weatherData.precipitation}mm`;
-        
-        await this.delay(1000);
-        sourceC.classList.add('active');
-        windValue.textContent = `${weatherData.wind}km/h`;
-        
-        // Aggregate data
-        await this.delay(1500);
-        forecastResult.textContent = weatherData.shortForecast;
-        
-        // Show detailed forecast
-        await this.delay(1000);
-        resultBox.innerHTML = `
-            <h4>${location} Weather Forecast</h4>
-            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin: 1rem 0;">
-                <div><strong>Temperature:</strong> ${weatherData.temperature}°C</div>
-                <div><strong>Precipitation:</strong> ${weatherData.precipitation}mm</div>
-                <div><strong>Wind:</strong> ${weatherData.wind}km/h</div>
-            </div>
-            <p><strong>Forecast Summary:</strong> ${weatherData.detailedForecast}</p>
-        `;
-        resultBox.className = 'result-box success';
-    }
-
+ 
     generateWeatherData(location) {
         const weatherData = {
             'New York': {
@@ -1776,10 +1734,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     e.preventDefault();
                     document.querySelector('[data-pattern="loop"]').click();
                     break;
-                case '6':
-                    e.preventDefault();
-                    document.querySelector('[data-pattern="aggregator"]').click();
-                    break;
                 case '7':
                     e.preventDefault();
                     document.querySelector('[data-pattern="network"]').click();
@@ -1802,7 +1756,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //         <div>Ctrl+3: Collaborate Pattern</div>
     //         <div>Ctrl+4: Competitive Pattern</div>
     //         <div>Ctrl+5: Loop Pattern</div>
-    //         <div>Ctrl+6: Aggregator Pattern</div>
     //         <div>Ctrl+7: Network Pattern</div>
     //         <div>Ctrl+8: Hierarchical Pattern</div>
     //     </div>
