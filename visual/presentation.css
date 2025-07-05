@@ -1,16 +1,13 @@
-/* Presentation Carousel Styles - Dark Theme */
+/* Presentation Carousel Styles */
 :root {
     --slide-transition: 0.5s;
-    --primary-color: #5468ff;
-    --secondary-color: #7b68ee;
-    --text-color: #e1e1e1;
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --text-color: #333;
     --light-text: white;
-    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-    --card-bg: rgba(15, 23, 42, 0.95);
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    --card-border: rgba(71, 85, 105, 0.5);
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
     --nav-button-size: 50px;
-    --section-bg: rgba(15, 23, 42, 0.7);
 }
 
 body {
@@ -34,7 +31,7 @@ body {
     left: 0;
     right: 0;
     height: 80px;
-    background: rgba(15, 23, 42, 0.7);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
@@ -42,7 +39,6 @@ body {
     z-index: 100;
     text-align: center;
     padding: 0 100px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .presentation-header h1 {
@@ -60,7 +56,6 @@ body {
     right: 0;
     bottom: 40px;
     overflow: hidden;
-    background: var(--bg-gradient);
 }
 
 .carousel-track {
@@ -85,12 +80,11 @@ body {
     left: 0;
     right: 0;
     height: 40px;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 100;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .slide-indicators {
@@ -102,7 +96,7 @@ body {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
     cursor: pointer;
 }
 
@@ -125,7 +119,7 @@ body {
     transform: translateY(-50%);
     width: var(--nav-button-size);
     height: var(--nav-button-size);
-    background: rgba(15, 23, 42, 0.7);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -135,11 +129,10 @@ body {
     cursor: pointer;
     z-index: 100;
     transition: all 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .arrow-nav:hover {
-    background: rgba(71, 85, 105, 0.8);
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .arrow-nav.prev {
@@ -154,61 +147,13 @@ body {
 .slide-content {
     background: var(--card-bg);
     border-radius: 15px;
-    box-shadow: var(--card-shadow);
-    border: 1px solid var(--card-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     height: 100%;
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-}
-
-/* All white content sections inside slides - like those in profile and demo sections */
-.slide-body > div,
-.slide-content .demo-container,
-.slide-body .visualization,
-.slide-body .input-section,
-.slide-body .result-section,
-.demo-container > div,
-.result-box,
-.slide-body h1, .slide-body h2, .slide-body h3, .slide-body h4, .slide-body h5, .slide-body h6 {
-    background-color: var(--card-bg) !important;
-    color: var(--text-color) !important;
-}
-
-/* Make text on white backgrounds visible - strengthen text visibility */
-.slide-body div,
-.slide-body p,
-.slide-body span,
-.slide-body li,
-.step-card p,
-.panelist-card p,
-.agent-card p,
-.network-node p,
-.hierarchy-node p {
-    color: #e2e8f0 !important;
-}
-
-/* Style text in demo sections - improve heading contrast */
-.intro-content h3,
-.demo-container h3,
-.result-section h3,
-.input-section h3 {
-    color: #a5b4fc !important; /* light indigo */
-    margin-bottom: 20px;
-    font-weight: bold !important;
-}
-
-/* Improve heading contrast throughout */
-h2, h3, h4, h5 {
-    color: #a5b4fc !important;
-}
-
-/* Fix profile slide text */
-#profile-pattern h2,
-#profile-pattern p {
-    color: white !important;
 }
 
 .slide-header {
@@ -219,11 +164,6 @@ h2, h3, h4, h5 {
 .slide-header h2 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: var(--light-text);
-}
-
-.slide-header p {
-    color: #94a3b8;
 }
 
 .slide-body {
@@ -347,14 +287,13 @@ h2, h3, h4, h5 {
     position: fixed;
     bottom: 50px;
     right: 20px;
-    background: rgba(15, 23, 42, 0.9);
+    background: rgba(0, 0, 0, 0.6);
     color: white;
     padding: 10px;
     border-radius: 5px;
     font-size: 12px;
     z-index: 1000;
     opacity: 0.8;
-    border: 1px solid var(--primary-color);
 }
 
 /* Introduction slide styling */
@@ -362,11 +301,10 @@ h2, h3, h4, h5 {
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
-    color: #e2e8f0;
 }
 
 .intro-section {
-    background: var(--section-bg);
+    background: rgba(255, 255, 255, 0.1);
     padding: 15px 20px;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -374,7 +312,7 @@ h2, h3, h4, h5 {
 }
 
 .intro-section h4 {
-    color: #a5b4fc; /* lighter indigo for headings */
+    color: var(--primary-color);
     margin-top: 0;
     font-size: 1.3rem;
 }
@@ -382,19 +320,16 @@ h2, h3, h4, h5 {
 .intro-section p {
     margin-bottom: 0;
     line-height: 1.5;
-    color: #e2e8f0;
 }
 
 .intro-section ol, .intro-section ul {
     margin: 10px 0;
     padding-left: 25px;
-    color: #e2e8f0;
 }
 
 .intro-section li {
     margin-bottom: 8px;
     line-height: 1.4;
-    color: #e2e8f0;
 }
 
 .intro-section strong {
@@ -451,58 +386,48 @@ h2, h3, h4, h5 {
     border-radius: 15px;
     font-size: 0.9rem;
     font-weight: 600;
-    background: #1e293b;
-    color: #cbd5e1;
+    background: #e9ecef;
+    color: #495057;
     display: inline-block;
     margin-top: 0.5rem;
 }
 
 .slide-body .status.processing {
-    background: #854d0e;
-    color: #fef3c7;
+    background: #ffc107;
+    color: #856404;
 }
 
 .slide-body .status.completed {
-    background: #0f766e;
+    background: #28a745;
     color: white;
 }
 
 /* Fix for agent cards in presentation mode */
-.slide-body .agent-card,
-.step-card,
-.panelist-card,
-.coordinator-card,
-.bidder-card,
-.winner-card,
-.data-source,
-.aggregator-card,
-.network-node,
-.hierarchy-node {
-    background: rgba(30, 41, 59, 0.8) !important;
-    border-radius: 10px !important;
-    padding: 1.5rem !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
-    text-align: center !important;
-    transition: all 0.3s ease !important;
-    border: 2px solid transparent !important;
-    color: #e2e8f0 !important;
+.slide-body .agent-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
 .slide-body .agent-card.leader {
-    background: linear-gradient(135deg, #5468ff, #1e1b4b);
+    background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
-    border: 2px solid #5468ff;
+    border: 2px solid #667eea;
 }
 
 .slide-body .agent-card.active {
-    border-color: #10b981;
+    border-color: #28a745;
     transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
 }
 
 /* Fix for message bubble in presentation mode */
 .slide-body .message-bubble {
-    background: #5468ff;
+    background: #667eea;
     color: white;
     padding: 1rem 1.5rem;
     border-radius: 20px;
@@ -527,346 +452,18 @@ h2, h3, h4, h5 {
 }
 
 /* Fix for other interactive elements */
-.slide-body .progress-bar,
-.progress-bar {
-    width: 100% !important;
-    height: 8px !important;
-    background: #1e293b !important;
-    border-radius: 4px !important;
-    overflow: hidden !important;
-    margin-top: 1rem !important;
-}
-
-.slide-body .progress,
-.progress {
-    height: 100% !important;
-    background: linear-gradient(90deg, #5468ff, #7b68ee) !important;
-    width: 0% !important;
-    transition: width 0.5s ease !important;
-}
-
-/* Fix white backgrounds in step cards and interactive elements */
-.step-card .agent-info,
-.step-card .step-number,
-.loop-step-card,
-.decision-diamond,
-.quality-meter,
-.workflow-steps,
-.arrow,
-.panel-grid,
-.synthesis-section,
-.coordinator-card,
-.auction-board,
-.task-posting,
-.bidding-section,
-.aggregator-layout,
-.network-grid,
-.hierarchy-tree,
-div[class^="step-card"],
-div[class^="agent-info"],
-div[class^="progress-bar"],
-.workflow-steps > div,
-.hierarchy-tree > div,
-.panel-grid > div {
-    background-color: var(--card-bg) !important;
-    color: #e2e8f0 !important;
-}
-
-/* Fix white step cards in coordinate pattern */
-.step-card {
-    background-color: #1e293b !important;
-    border: 1px solid rgba(71, 85, 105, 0.5) !important;
-}
-
-/* Fix agent info */
-.agent-info {
-    background-color: transparent !important;
-}
-
-/* Target the white step cards in coordinate pattern specifically */
-[id^="step-"] {
-    background-color: #1e293b !important;
-}
-
-/* Searcher, Writer, Editor headers in coordinate pattern */
-.step-card h4, 
-#searcher-agent h4, 
-#writer-agent h4, 
-#editor-agent h4,
-.panelist-card h4,
-.network-node h4,
-.hierarchy-node h4 {
-    color: white !important;
-    margin-top: 0;
-    font-weight: bold;
-}
-
-/* Fix any remaining white backgrounds */
-* {
-    background-color: inherit;
-}
-
-/* Make panels in Collaborate pattern dark */
-.panelist-card {
-    background-color: #1e293b !important;
-    color: white !important;
-    border: 1px solid rgba(71, 85, 105, 0.5) !important;
-}
-
-/* Fix network pattern message bubbles and preview areas */
-.network-node .message-preview,
-.slide-body .message-preview,
-#network-message,
-[class*="message-"],
-.slide-body [id*="message-"] {
-    background-color: #1e293b !important;
-    color: #e2e8f0 !important;
-    border: 1px solid rgba(71, 85, 105, 0.5) !important;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-/* Style the active message bubble in network pattern */
-.message-bubble,
-div[id="network-message"],
-#network-pattern .message-bubble {
-    background-color: #4f46e5 !important;
-    color: white !important;
-    border: none !important;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4) !important;
-}
-
-/* Fix specific issues in network pattern */
-#network-pattern .message-preview,
-#venue-agent .message-preview,
-#budget-agent .message-preview,
-#catering-agent .message-preview,
-#entertainment-agent .message-preview,
-.network-grid .message-preview,
-[class*="agent"] .message-preview {
-    background-color: #1e293b !important;
-    color: #e2e8f0 !important;
-    border: 1px solid rgba(71, 85, 105, 0.5) !important;
-    border-radius: 6px !important;
-    padding: 8px !important;
-    min-height: 30px !important;
-}
-
-/* Make sure text inside messages is white in network pattern */
-#network-pattern .message-bubble p,
-#network-pattern .message-bubble span,
-#network-pattern .message-bubble div {
-    color: white !important;
-}
-
-#catering-agent .message-preview,
-#venue-agent .message-preview,
-#budget-agent .message-preview,
-#entertainment-agent .message-preview {
-    background-color: #1e293b !important;
-    color: #e2e8f0 !important;
-    min-height: 50px;
+.slide-body .progress-bar {
     width: 100%;
-    border-radius: 8px;
-    border: 1px solid rgba(71, 85, 105, 0.5);
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 1rem;
 }
 
-/* Add some more specific rules for Response box */
-.result-box, 
-#route-result, 
-#coordinate-result,
-#collaborate-result,
-#loop-result,
-#aggregator-result,
-#network-result,
-#hierarchical-result {
-    background-color: #1e293b !important;
-    color: #e2e8f0 !important;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid rgba(71, 85, 105, 0.5);
-}
-
-/* Fix white borders in all slides */
-.arrow-to-aggregator,
-.hierarchy-connector,
-[class^="arrow-"],
-[class*=" arrow-"],
-hr, 
-.divider,
-.border,
-svg path,
-svg line,
-.line,
-.connector {
-    border-color: rgba(71, 85, 105, 0.5) !important;
-    background-color: rgba(71, 85, 105, 0.5) !important;
-    stroke: rgba(148, 163, 184, 0.5) !important;
-    color: rgba(148, 163, 184, 0.8) !important;
-}
-
-/* Fix for aggregator pattern arrows */
-.arrow-to-aggregator {
-    border: none !important;
-    position: relative !important;
-}
-
-.arrow-to-aggregator::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
+.slide-body .progress {
     height: 100%;
-    width: 2px;
-    background-image: linear-gradient(to bottom, #4f46e5 50%, transparent 50%);
-    background-size: 2px 10px;
-    background-repeat: repeat-y;
-}
-
-/* Fix any vertical or horizontal lines */
-.vertical-line,
-.horizontal-line {
-    background-color: rgba(71, 85, 105, 0.5) !important;
-    border-color: rgba(71, 85, 105, 0.5) !important;
-}
-
-/* Fix borders on ALL elements - more aggressive approach */
-.data-source,
-.aggregator-card,
-.step-card,
-.network-node,
-.hierarchy-node,
-.bidder-card,
-.panelist-card,
-.coordinator-card,
-.agent-card,
-.decision-diamond,
-.winner-card,
-.result-box,
-.white-bg,
-.card,
-.thinking-indicator,
-.response-preview,
-[id^="step-"],
-[class*="step-"],
-[class*="card"],
-[class*="box"],
-[class*="container"],
-[class*="section"],
-.visualization > div,
-div[style*="border"],
-#route-result, 
-#coordinate-result,
-#collaborate-result,
-#loop-result,
-#aggregator-result,
-#network-result,
-#hierarchical-result,
-.workflow-steps div,
-.hierarchy-tree div,
-.panel-grid div,
-.step-card div {
-    border-color: rgba(71, 85, 105, 0.5) !important;
-}
-
-/* Remove all white borders completely */
-* {
-    border-color: rgba(71, 85, 105, 0.5) !important;
-}
-
-/* Fix specific borders for coordinate pattern steps */
-.step-card, 
-#step-1, #step-2, #step-3,
-.workflow-steps > div,
-[class*="step-"] {
-    background-color: #1e293b !important;
-    border: 1px solid rgba(71, 85, 105, 0.5) !important;
-    border-radius: 10px !important;
-}
-
-/* Fix inputs and buttons with better contrast */
-input[type="text"],
-textarea,
-select {
-    background-color: #1e293b !important;
-    color: #e2e8f0 !important;
-    border: 1px solid #475569 !important;
-    border-radius: 6px !important;
-    padding: 8px 12px !important;
-}
-
-button,
-.lang-btn,
-.topic-btn,
-.question-btn,
-.task-btn {
-    background-color: #4f46e5 !important; /* indigo-600 */
-    color: white !important;
-    border: none !important;
-    border-radius: 6px !important;
-    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.3) !important;
-    padding: 8px 16px !important;
-    transition: all 0.2s ease !important;
-}
-
-button:hover,
-.lang-btn:hover,
-.topic-btn:hover,
-.question-btn:hover,
-.task-btn:hover {
-    background-color: #6366f1 !important; /* indigo-500 */
-    transform: translateY(-1px) !important;
-}
-
-/* Fix specific elements and colors */
-.arrow, .loop-arrow {
-    color: #e2e8f0 !important;
-    font-weight: bold !important;
-    font-size: 1.5rem !important;
-}
-
-/* Status colors with better contrast */
-.status.processing {
-    background-color: #b45309 !important; /* amber-700 */
-    color: white !important;
-}
-
-.status.completed {
-    background-color: #059669 !important; /* emerald-600 */
-    color: white !important;
-}
-
-.status {
-    background-color: #334155 !important; /* slate-700 */
-    color: #e2e8f0 !important;
-    font-weight: bold !important;
-}
-
-/* Ensure number indicators are clearly visible */
-.step-number {
-    background-color: #4f46e5 !important;
-    color: white !important;
-    border-radius: 50% !important;
-    width: 30px !important;
-    height: 30px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-weight: bold !important;
-}
-
-/* Make thinking indicators visible */
-.thinking-indicator {
-    color: #93c5fd !important; /* blue-300 */
-    font-size: 1.5rem !important;
-}
-
-/* All white cards should have dark backgrounds */
-.slide-body .white-card,
-.slide-body .card,
-.white-bg,
-.thinking-indicator,
-.response-preview {
-    background-color: var(--card-bg) !important;
-    color: #e2e8f0 !important;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    transition: width 0.5s ease;
 }
