@@ -229,8 +229,8 @@ def main():
         console.print("\n" + "="*80 + "\n")
         
         # Spanish example
-        # demo.demonstrate_routing("¿Cómo puedo restablecer mi contraseña? No puedo iniciar sesión en mi cuenta.")
-        # console.print("\n" + "="*80 + "\n")
+        demo.demonstrate_routing("¿Cómo puedo restablecer mi contraseña? No puedo iniciar sesión en mi cuenta.")
+        console.print("\n" + "="*80 + "\n")
         
         # French example
         # demo.demonstrate_routing("Comment puis-je réinitialiser mon mot de passe? Je ne peux pas me connecter à mon compte.")

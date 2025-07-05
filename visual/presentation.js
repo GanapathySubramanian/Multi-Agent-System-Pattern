@@ -8,36 +8,42 @@ class PresentationCarousel {
         this.currentSlide = 0;
         this.totalSlides = 0;
         this.patterns = [
-            'intro',
             'profile',
+            'title',
+            'intro',
             'route',
             'coordinate', 
             'collaborate',
             'loop',
             'network',
-            'hierarchical'
+            'hierarchical',
+            'thank-you'
         ];
         this.titles = {
-            'intro': 'Multi-Agent System Patterns - Introduction',
+            'title': 'Multi-Agent System Patterns',
             'profile': 'About the Presenter',
+            'intro': 'Multi-Agent System Patterns - Introduction',
             'route': 'Route Pattern - Smart Language Router',
             'coordinate': 'Coordinate Pattern - Content Creation Workflow',
             'collaborate': 'Collaborate Pattern - Vacation Planner',
             'competitive': 'Competitive Pattern - Task Auction System',
             'loop': 'Loop Pattern - Essay Improvement System',
             'network': 'Network Pattern - Party Planning Committee',
-            'hierarchical': 'Hierarchical Pattern - Software Development Team'
+            'hierarchical': 'Hierarchical Pattern - Software Development Team',
+            'thank-you': 'Thank You for Your Attention'
         };
         this.descriptions = {
-            'intro': 'Exploring different ways AI agents can work together to accomplish complex tasks.',
+            'title': 'An Interactive Demonstration of AI Collaboration Models',
             'profile': 'Presented by Ganapathy Subramanian S, Engineer at Presidio',
+            'intro': 'Exploring different ways AI agents can work together to accomplish complex tasks.',
             'route': 'The Team Leader analyzes the query and routes it to the most appropriate specialist agent.',
             'coordinate': 'The Team Leader delegates tasks sequentially and synthesizes outputs into a cohesive response.',
             'collaborate': 'All team members respond simultaneously, then the coordinator synthesizes into a consensus.',
             'competitive': 'Agents compete by submitting bids, and the best offer wins the task.',
             'loop': 'Agents keep repeating and improving work based on feedback until the output is good enough.',
             'network': 'Agents freely communicate with each other in a web-like structure, making group decisions.',
-            'hierarchical': 'Higher-level agents manage and assign tasks to lower-level agents, like managers and employees.'
+            'hierarchical': 'Higher-level agents manage and assign tasks to lower-level agents, like managers and employees.',
+            'thank-you': 'Multi-Agent System Patterns Presentation'
         };
         this.init();
     }
@@ -46,7 +52,7 @@ class PresentationCarousel {
         // Wait for the DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             // Skip creating intro slide since we already have it in HTML
-            this.createIntroSlide();
+            // this.createIntroSlide(); // Commented out to preserve the slide order defined in patterns array
             this.setupCarousel();
             this.setupNavigation();
             this.setupKeyboardShortcuts();

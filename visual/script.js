@@ -784,21 +784,44 @@ class MultiAgentDemo {
         let quality = 0;
         let iterations = 0;
         const qualityThreshold = 85;
+        const draftProgress = document.getElementById('draft-progress');
+        
+        // Initial Draft is created only once at the beginning
+        // Execute draft step
+        const draftCard = document.getElementById('draft-step');
+        if (draftCard && draftProgress) {
+            draftCard.classList.add('active');
+            
+            // Animate draft progress
+            let progressValue = 0;
+            const progressInterval = setInterval(() => {
+                progressValue += 10;
+                draftProgress.style.width = `${progressValue}%`;
+                
+                if (progressValue >= 100) {
+                    clearInterval(progressInterval);
+                }
+            }, 100);
+            
+            await this.delay(1000);
+            draftCard.classList.remove('active');
+        }
         
         // Loop until quality threshold is met
         while (quality < qualityThreshold) {
             iterations++;
             iterationCount.textContent = `Iteration: ${iterations}`;
             
-            // Execute each step in the loop
-            for (let i = 0; i < steps.length; i++) {
+            // Execute only review and improve steps in subsequent iterations
+            for (let i = 1; i < steps.length; i++) { // Start from index 1 to skip 'draft'
                 const stepCard = document.getElementById(`${steps[i]}-step`);
                 const progress = document.getElementById(`${steps[i]}-progress`);
                 
                 if (stepCard && progress) {
                     stepCard.classList.add('active');
                     
-                    // Animate progress
+                    // Animate progress (reset to 0 first for review and improve steps)
+                    progress.style.width = '0%';
                     let progressValue = 0;
                     const progressInterval = setInterval(() => {
                         progressValue += 10;

@@ -137,7 +137,7 @@ class LoopPatternDemo:
         return {
             "evaluation": evaluation,
             "score": score,
-            "continue_iteration": continue_iteration and score < 9  # Stop if score is 9 or higher
+            "continue_iteration": continue_iteration and score < 8 # Stop if score is 8 or higher
         }
     
     def display_header(self):

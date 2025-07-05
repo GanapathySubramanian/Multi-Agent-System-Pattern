@@ -15,17 +15,53 @@
     </header>
 
     <nav class="pattern-nav">
-        <button class="nav-btn" data-pattern="profile">Presenter Profile</button>
-        <button class="nav-btn active" data-pattern="route">Route Pattern</button>
+        <button class="nav-btn active" data-pattern="profile">Presenter Profile</button>
+        <button class="nav-btn" data-pattern="title">Title</button>
+        <button class="nav-btn" data-pattern="intro">Introduction</button>
+        <button class="nav-btn" data-pattern="route">Route Pattern</button>
         <button class="nav-btn" data-pattern="coordinate">Coordinate Pattern</button>
         <button class="nav-btn" data-pattern="collaborate">Collaborate Pattern</button>
         <button class="nav-btn" data-pattern="loop">Loop Pattern</button>
         <button class="nav-btn" data-pattern="network">Network Pattern</button>
         <button class="nav-btn" data-pattern="hierarchical">Hierarchical Pattern</button>
+        <button class="nav-btn" data-pattern="thank-you">Thank You</button>
     </nav>
 
+    <!-- Title Slide -->
+    <section id="title-pattern" class="pattern-section">
+        <div class="pattern-header">
+            <h2>Multi-Agent System Patterns</h2>
+            <p>An Interactive Demonstration of AI Collaboration Models</p>
+        </div>
+        
+        <div class="demo-container">
+            <div class="title-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 400px; text-align: center;">
+                <p style="font-size: 1.5rem; margin-bottom: 2rem;">Exploring How AI Agents Work Together</p>
+                
+                <div style="width: 100%; text-align: left; max-width: 800px;">
+                    <div class="core-questions" style="margin-top: 20px;">
+                        <h3>Core Concepts:</h3>
+                        <ul style="font-size: 1.2rem; line-height: 1.6;">
+                            <li>What is an LLM?</li>
+                            <li>What is an AI agent?</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="agenda-questions" style="margin-top: 20px;">
+                        <h3>Today's Agenda:</h3>
+                        <ul style="font-size: 1.2rem; line-height: 1.6;">
+                            <li>What is a multi-agent system?</li>
+                            <li>Why do we need multi-agent systems?</li>
+                            <li>What are multi-agent system patterns?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Profile Section -->
-    <section id="profile-pattern" class="pattern-section">
+    <section id="profile-pattern" class="pattern-section active">
         <div class="pattern-header">
             <h2>Multi-Agent System Patterns - Interactive Demonstration</h2>
             <p>Exploring different ways AI agents can work together to accomplish complex tasks</p>
@@ -44,8 +80,47 @@
         </div>
     </section>
 
+    <!-- Introduction Slide -->
+    <section id="intro-pattern" class="pattern-section">
+        <div class="pattern-header">
+            <h2>Multi-Agent System Patterns - Introduction</h2>
+            <p>Exploring different ways AI agents can work together to accomplish complex tasks.</p>
+        </div>
+        
+        <div class="demo-container">
+            <div class="intro-content">
+                <div class="intro-section">
+                    <h4>What Are Multi-Agent Systems?</h4>
+                    <p>A multi-agent system is a group of AI agents working together to solve problems that are difficult or impossible for a single agent to solve.</p>
+                </div>
+                
+                <div class="intro-section">
+                    <h4>Why Patterns Matter</h4>
+                    <p>Different collaboration patterns offer unique advantages for different types of tasks and challenges.</p>
+                </div>
+                
+                <div class="intro-section">
+                    <h4>6 Key Multi-Agent Patterns</h4>
+                    <ol>
+                        <li><strong>Route Pattern</strong>: Directing tasks to specialists</li>
+                        <li><strong>Coordinate Pattern</strong>: Sequential workflows</li>
+                        <li><strong>Collaborate Pattern</strong>: Parallel problem-solving</li>
+                        <li><strong>Loop Pattern</strong>: Iterative improvement</li>
+                        <li><strong>Network Pattern</strong>: Web-like communication</li>
+                        <li><strong>Hierarchical Pattern</strong>: Manager-worker structure</li>
+                    </ol>
+                </div>
+                
+                <div class="intro-section">
+                    <h4>Interactive Demos</h4>
+                    <p>Each pattern includes a live demonstration showing how agents interact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Route Pattern Demo -->
-    <section id="route-pattern" class="pattern-section active">
+    <section id="route-pattern" class="pattern-section">
         <div class="pattern-header">
             <h2>Route Pattern - Smart Language Router</h2>
             <p>The Team Leader analyzes the query and routes it to the most appropriate specialist agent.</p>
@@ -469,6 +544,65 @@
     </section>
 
     <!-- Competitive Pattern Demo has been removed to streamline the presentation -->
+
+    <!-- Thank You Slide -->
+    <section id="thank-you-pattern" class="pattern-section">
+        <div class="pattern-header">
+            <h2>Thank You</h2>
+            <p>Multi-Agent System Patterns Presentation</p>
+        </div>
+        
+        <div class="demo-container">
+            <div class="thank-you-content" style="padding: 20px; display: flex; flex-direction: column; align-items: center;">
+                <div class="pattern-summary" style="width: 100%; max-width: 900px;">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: #4338ca;">Pattern Quick Reference</h3>
+                    
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px;">
+                        <!-- Route Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #e9f2ff 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 5px;">Route Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Routing to suitable agents among multiple agents</p>
+                        </div>
+                        
+                        <!-- Collaborate Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #f0f9ff 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #0891b2; border-bottom: 2px solid #0891b2; padding-bottom: 5px;">Collaborate Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Running agents simultaneously and combining responses</p>
+                        </div>
+                        
+                        <!-- Coordinate Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #f0fff4 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #059669; border-bottom: 2px solid #059669; padding-bottom: 5px;">Coordinate Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Sequential workflow where one agent relies on output of other agent</p>
+                        </div>
+                        
+                        <!-- Loop Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #fff7ed 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #d97706; border-bottom: 2px solid #d97706; padding-bottom: 5px;">Loop Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Run agent multiple times until meeting constraints or expected results</p>
+                        </div>
+                        
+                        <!-- Network Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #ffe4e6 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #be185d; border-bottom: 2px solid #be185d; padding-bottom: 5px;">Network Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Agents communicate with each other to make group decisions</p>
+                        </div>
+                        
+                        <!-- Hierarchical Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #f5f3ff 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 5px;">Hierarchical Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Manager-worker structure with clear authority levels</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="closing-message" style="margin-top: 40px; text-align: center;">
+                    <p style="font-size: 18px;">In case of queries, feel free to reach out to me on Teams:</p>
+                    <p style="font-size: 20px; font-weight: bold; color: #4338ca; margin-top: 10px;">Ganapathy Subramanian S</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Load all required scripts -->
     <script src="script.js"></script>

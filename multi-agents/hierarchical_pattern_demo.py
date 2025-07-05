@@ -12,6 +12,7 @@ from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 from rich.tree import Tree
+from rich import box
 
 # Import LangChain components
 from langchain_aws import ChatBedrock
@@ -450,7 +451,64 @@ class HierarchicalPatternDemo:
         console.print()
     
     def display_hierarchy(self):
-        """Display the team hierarchy"""
+        """Display the team hierarchy and agent details"""
+        console.print("[bold cyan]Software Project Team - Agent Overview[/bold cyan]")
+        
+        # Create agent overview table
+        table = Table(title="Software Project Team Hierarchy", show_header=True, header_style="bold magenta", box=box.ROUNDED)
+        table.add_column("Agent", style="cyan", no_wrap=True)
+        table.add_column("Role", style="green")
+        table.add_column("Responsibilities", style="yellow")
+        table.add_column("Level", style="blue")
+        
+        # Add agents to table
+        table.add_row(
+            "Project Manager", 
+            "Overall Project Leader",
+            "Sets priorities, approves decisions, manages team leads, ensures project success",
+            "[bold]TOP[/bold]"
+        )
+        table.add_row(
+            "Development Lead", 
+            "Technical Leader",
+            "Breaks down tech requirements, manages developers, ensures code quality",
+            "[bold]MID[/bold]"
+        )
+        table.add_row(
+            "QA Lead", 
+            "Quality Assurance Leader",
+            "Creates test plans, manages testers, verifies product quality",
+            "[bold]MID[/bold]"
+        )
+        table.add_row(
+            "Frontend Developer", 
+            "UI Specialist",
+            "Implements user interfaces, responsive design, client-side functionality",
+            "[bold]WORKER[/bold]"
+        )
+        table.add_row(
+            "Backend Developer", 
+            "Server-Side Specialist",
+            "Implements APIs, database interactions, server-side logic",
+            "[bold]WORKER[/bold]"
+        )
+        table.add_row(
+            "Functional Tester", 
+            "Feature Verification",
+            "Tests features, verifies workflows, identifies bugs",
+            "[bold]WORKER[/bold]"
+        )
+        table.add_row(
+            "Performance Tester", 
+            "System Performance",
+            "Tests load capacity, identifies bottlenecks, measures response times",
+            "[bold]WORKER[/bold]"
+        )
+        
+        console.print(table)
+        console.print()
+        
+        # Show hierarchical structure visual
         tree = Tree("🏢 [bold]Project Team Hierarchy[/bold]", guide_style="dim")
         
         # Add Project Manager
@@ -469,11 +527,23 @@ class HierarchicalPatternDemo:
         console.print(tree)
         console.print()
         
-        # Display information flow
-        console.print("[bold cyan]Information & Decision Flow:[/bold cyan]")
-        console.print("[dim]1. Worker Level: Implements specific tasks[/dim]")
-        console.print("[dim]2. Mid Level: Reviews, coordinates, and provides guidance[/dim]")
-        console.print("[dim]3. Top Level: Makes final decisions and sets direction[/dim]")
+        # Display information flow with clearer visualization
+        flow_panel = Panel(
+            "[bold]Information Flow (↑):[/bold]\n"
+            "Worker Level → Mid Level → Top Level\n"
+            "- Workers report implementation details\n"
+            "- Team leads synthesize information\n"
+            "- Project Manager receives consolidated status\n\n"
+            "[bold]Decision Flow (↓):[/bold]\n"
+            "Top Level → Mid Level → Worker Level\n"
+            "- Project Manager sets direction and makes approvals\n"
+            "- Team leads translate decisions into actionable plans\n"
+            "- Workers implement based on approved direction",
+            title="[bold cyan]Information & Decision Flow[/bold cyan]",
+            border_style="cyan",
+            padding=(1, 2)
+        )
+        console.print(flow_panel)
         console.print()
     
     def demonstrate_hierarchical_pattern(self, feature_description: str):
