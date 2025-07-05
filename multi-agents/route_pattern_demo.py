@@ -225,7 +225,7 @@ def main():
         console.print("[bold]Demonstrating Route Pattern with Different Languages[/bold]\n")
         
         # English example
-        demo.demonstrate_routing("How can I reset my password? I can't log into my account.")
+        demo.demonstrate_routing("Hey I am Ganapathy, How can I reset my password? I can't log into my account.")
         console.print("\n" + "="*80 + "\n")
         
         # Spanish example
@@ -233,9 +233,9 @@ def main():
         console.print("\n" + "="*80 + "\n")
         
         # French example
-        demo.demonstrate_routing("Comment puis-je réinitialiser mon mot de passe? Je ne peux pas me connecter à mon compte.")
+        # demo.demonstrate_routing("Comment puis-je réinitialiser mon mot de passe? Je ne peux pas me connecter à mon compte.")
         
-        console.print("\n[bold green]Route Pattern Demo Complete![/bold green]")
+        # console.print("\n[bold green]Route Pattern Demo Complete![/bold green]")
     
     except KeyboardInterrupt:
         console.print("\n[yellow]Demo interrupted by user. Goodbye! 👋[/yellow]")

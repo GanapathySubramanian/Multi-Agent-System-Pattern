@@ -1,11 +1,10 @@
 """
-Hierarchical Pattern Demo - Corporate Decision Making
+Hierarchical Pattern Demo - Software Project Team
 Demonstrates agents organized in a management hierarchy with different levels of authority
 """
 
 import os
 import time
-import random
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 from rich.console import Console
@@ -13,6 +12,7 @@ from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 from rich.tree import Tree
+from rich import box
 
 # Import LangChain components
 from langchain_aws import ChatBedrock
@@ -29,7 +29,7 @@ class HierarchicalPatternDemo:
         self.setup_agents()
     
     def setup_agents(self):
-        """Setup agents in a management hierarchy"""
+        """Setup agents in a project management hierarchy"""
         
         # HARDCODED: Use supported model ID that doesn't require inference profiles
         claude_model = "anthropic.claude-3-5-sonnet-20240620-v1:0"  # Hardcoded to bypass .env issues
@@ -40,169 +40,153 @@ class HierarchicalPatternDemo:
         # Create LangChain model
         self.llm = ChatBedrock(model_id=claude_model, region_name=region_name)
         
-        # CEO - Top level decision maker
-        self.ceo_agent = self.create_agent(
-            name="CEO",
-            role="Chief Executive Officer",
+        # Project Manager - Top level
+        self.project_manager_agent = self.create_agent(
+            name="Project Manager",
+            role="Overall project leader",
             instructions="""
-            You are the CEO of a technology company, responsible for final approval on major strategic decisions.
-            Your expertise includes business strategy, long-term planning, and executive decision-making.
-            You consider inputs from your department heads but make the ultimate decision based on:
-            - Alignment with company vision and strategy
-            - Financial implications and ROI
-            - Market positioning and competitive advantage
-            - Risk assessment
+            You are the Project Manager for a software development team.
+            Your responsibilities include:
+            - Setting project priorities and deadlines
+            - Delegating tasks to your team leads
+            - Making high-level decisions about project direction
+            - Ensuring all parts of the project come together successfully
             
-            Provide concise, decisive responses that demonstrate executive-level thinking.
-            Include reasoning for your decisions to help your team understand the strategic rationale.
+            Keep your communications clear, decisive, and focused on project goals.
             """
         )
         
-        # Department Heads - Mid-level managers
-        self.tech_vp_agent = self.create_agent(
-            name="CTO", 
-            role="Chief Technology Officer",
-            instructions="""
-            You are the CTO, responsible for technology decisions and managing the technical department.
-            Your expertise includes technical feasibility, implementation challenges, and technology strategy.
-            
-            When evaluating proposals:
-            - Assess technical feasibility and implementation requirements
-            - Consider integration with existing technology stack
-            - Evaluate technical risks and dependencies
-            - Provide technical recommendations with clear rationale
-            
-            For decisions beyond your authority, present a structured recommendation to the CEO.
-            Include key technical considerations, potential risks, and your recommended approach.
-            """
-        )
-        
-        self.marketing_vp_agent = self.create_agent(
-            name="CMO", 
-            role="Chief Marketing Officer",
-            instructions="""
-            You are the CMO, responsible for marketing strategy and customer acquisition.
-            Your expertise includes market positioning, customer experience, and brand management.
-            
-            When evaluating proposals:
-            - Assess market potential and customer appeal
-            - Consider brand alignment and marketing opportunities
-            - Evaluate competitive positioning and differentiation
-            - Provide marketing recommendations with clear rationale
-            
-            For decisions beyond your authority, present a structured recommendation to the CEO.
-            Include key marketing considerations, potential opportunities, and your recommended approach.
-            """
-        )
-        
-        self.finance_vp_agent = self.create_agent(
-            name="CFO", 
-            role="Chief Financial Officer",
-            instructions="""
-            You are the CFO, responsible for financial strategy and resource allocation.
-            Your expertise includes financial analysis, budget management, and investment evaluation.
-            
-            When evaluating proposals:
-            - Assess financial implications and budget requirements
-            - Consider ROI, payback period, and financial risks
-            - Evaluate resource allocation and opportunity costs
-            - Provide financial recommendations with clear rationale
-            
-            For decisions beyond your authority, present a structured recommendation to the CEO.
-            Include key financial considerations, cost-benefit analysis, and your recommended approach.
-            """
-        )
-        
-        # Team Leads - Lower level implementers
+        # Development Lead - Mid level
         self.dev_lead_agent = self.create_agent(
-            name="Development Lead",
-            role="Technical implementation lead",
+            name="Development Lead", 
+            role="Technical implementation leader",
             instructions="""
-            You are the Development Lead, responsible for technical implementation and software development.
-            Your expertise includes software architecture, development processes, and technical requirements.
+            You are the Development Lead reporting to the Project Manager.
+            Your responsibilities include:
+            - Breaking down technical requirements into specific tasks
+            - Delegating implementation work to developers
+            - Resolving technical questions and blockers
+            - Ensuring code quality and technical feasibility
             
-            When assigned tasks:
-            - Break down technical requirements into implementable components
-            - Identify potential technical challenges and solutions
-            - Estimate development time and resource requirements
-            - Provide detailed implementation plans
-            
-            Report to the CTO with specific technical details and implementation considerations.
-            Focus on practical execution rather than strategic decisions.
+            Focus on translating project requirements into clear technical tasks.
             """
         )
         
-        self.design_lead_agent = self.create_agent(
-            name="Design Lead",
-            role="User experience and design lead",
+        # QA Lead - Mid level
+        self.qa_lead_agent = self.create_agent(
+            name="QA Lead", 
+            role="Testing and quality assurance leader",
             instructions="""
-            You are the Design Lead, responsible for user experience and visual design.
-            Your expertise includes UX principles, user research, and interface design.
+            You are the QA Lead reporting to the Project Manager.
+            Your responsibilities include:
+            - Creating test plans and acceptance criteria
+            - Delegating specific testing tasks to testers
+            - Verifying test results and identifying issues
+            - Ensuring overall product quality
             
-            When assigned tasks:
-            - Consider user needs and experience flows
-            - Develop design approaches aligned with brand guidelines
-            - Identify potential usability issues and solutions
-            - Provide design recommendations with user-centered rationale
-            
-            Report to the CMO with specific design details and user experience considerations.
-            Focus on practical execution rather than strategic decisions.
+            Focus on comprehensive testing strategies and quality standards.
             """
         )
         
-        self.analytics_lead_agent = self.create_agent(
-            name="Analytics Lead",
-            role="Data analysis and reporting lead",
+        # Frontend Developer - Worker level
+        self.frontend_dev_agent = self.create_agent(
+            name="Frontend Developer",
+            role="UI implementation specialist",
             instructions="""
-            You are the Analytics Lead, responsible for data analysis and performance reporting.
-            Your expertise includes data modeling, metrics definition, and analytical frameworks.
+            You are a Frontend Developer reporting to the Development Lead.
+            Your responsibilities include:
+            - Implementing user interface components
+            - Creating responsive and accessible designs
+            - Integrating with backend APIs
+            - Testing and debugging frontend code
             
-            When assigned tasks:
-            - Define relevant metrics and success criteria
-            - Develop measurement approaches and reporting frameworks
-            - Identify data requirements and potential limitations
-            - Provide analytical recommendations with data-driven rationale
+            Focus on specific implementation tasks assigned to you.
+            """
+        )
+        
+        # Backend Developer - Worker level
+        self.backend_dev_agent = self.create_agent(
+            name="Backend Developer",
+            role="Server-side implementation specialist",
+            instructions="""
+            You are a Backend Developer reporting to the Development Lead.
+            Your responsibilities include:
+            - Implementing server-side functionality
+            - Creating and optimizing API endpoints
+            - Managing database interactions
+            - Ensuring security and performance
             
-            Report to the CFO with specific analytical details and measurement considerations.
-            Focus on practical execution rather than strategic decisions.
+            Focus on specific implementation tasks assigned to you.
+            """
+        )
+        
+        # Functional Tester - Worker level
+        self.functional_tester_agent = self.create_agent(
+            name="Functional Tester",
+            role="Feature verification specialist",
+            instructions="""
+            You are a Functional Tester reporting to the QA Lead.
+            Your responsibilities include:
+            - Testing specific features for correctness
+            - Verifying user workflows and scenarios
+            - Identifying and documenting bugs
+            - Validating fixes and improvements
+            
+            Focus on specific testing tasks assigned to you.
+            """
+        )
+        
+        # Performance Tester - Worker level
+        self.performance_tester_agent = self.create_agent(
+            name="Performance Tester",
+            role="System performance specialist",
+            instructions="""
+            You are a Performance Tester reporting to the QA Lead.
+            Your responsibilities include:
+            - Testing system performance under load
+            - Identifying bottlenecks and inefficiencies
+            - Measuring response times and resource usage
+            - Verifying scalability and stability
+            
+            Focus on specific testing tasks assigned to you.
             """
         )
         
         # Create hierarchy structure
         self.hierarchy = {
-            "CEO": {
-                "agent": self.ceo_agent,
-                "reports": ["CTO", "CMO", "CFO"]
-            },
-            "CTO": {
-                "agent": self.tech_vp_agent,
-                "reports": ["Development Lead"],
-                "reports_to": "CEO"
-            },
-            "CMO": {
-                "agent": self.marketing_vp_agent,
-                "reports": ["Design Lead"],
-                "reports_to": "CEO"
-            },
-            "CFO": {
-                "agent": self.finance_vp_agent,
-                "reports": ["Analytics Lead"],
-                "reports_to": "CEO"
+            "Project Manager": {
+                "agent": self.project_manager_agent,
+                "reports": ["Development Lead", "QA Lead"]
             },
             "Development Lead": {
                 "agent": self.dev_lead_agent,
-                "reports": [],
-                "reports_to": "CTO"
+                "reports": ["Frontend Developer", "Backend Developer"],
+                "reports_to": "Project Manager"
             },
-            "Design Lead": {
-                "agent": self.design_lead_agent,
-                "reports": [],
-                "reports_to": "CMO"
+            "QA Lead": {
+                "agent": self.qa_lead_agent,
+                "reports": ["Functional Tester", "Performance Tester"],
+                "reports_to": "Project Manager"
             },
-            "Analytics Lead": {
-                "agent": self.analytics_lead_agent,
+            "Frontend Developer": {
+                "agent": self.frontend_dev_agent,
                 "reports": [],
-                "reports_to": "CFO"
+                "reports_to": "Development Lead"
+            },
+            "Backend Developer": {
+                "agent": self.backend_dev_agent,
+                "reports": [],
+                "reports_to": "Development Lead"
+            },
+            "Functional Tester": {
+                "agent": self.functional_tester_agent,
+                "reports": [],
+                "reports_to": "QA Lead"
+            },
+            "Performance Tester": {
+                "agent": self.performance_tester_agent,
+                "reports": [],
+                "reports_to": "QA Lead"
             }
         }
     
@@ -224,232 +208,233 @@ class HierarchicalPatternDemo:
             "chain": agent_chain
         }
     
-    def get_input_from_team_leads(self, project_description: str) -> Dict[str, str]:
-        """Team Leads provide initial input on a project"""
-        console.print("[bold yellow]Phase 1: Team Leads Initial Assessment[/bold yellow]")
+    def worker_level_implementation(self, feature_description: str) -> Dict[str, str]:
+        """Workers implement their specific parts of the feature"""
+        console.print("[bold yellow]Phase 1: Worker Level Implementation[/bold yellow]")
         
-        lead_inputs = {}
+        worker_outputs = {}
         
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
         ) as progress:
-            # Get input from Development Lead
-            task1 = progress.add_task("👨‍💻 Development Lead analyzing technical requirements...", total=None)
+            # Frontend Developer implementation
+            task1 = progress.add_task("💻 Frontend Developer implementing UI components...", total=None)
             
-            dev_prompt = f"""
-            As the Development Lead, you've been asked to provide an initial technical assessment of this project:
+            frontend_prompt = f"""
+            As the Frontend Developer, you've been assigned to implement the UI components for this feature:
             
-            {project_description}
+            {feature_description}
             
             Please provide:
-            1. Technical feasibility assessment
-            2. Key technical requirements and challenges
-            3. Estimated development time and resources
-            4. Recommendations from a technical implementation perspective
+            1. Your implementation approach for the UI components
+            2. Key technologies and libraries you'll use
+            3. Any clarifications you need from your lead
+            4. Estimated time to complete
             
-            Keep your assessment under 200 words, focused on practical implementation details.
+            Keep your response under 150 words, focused on your specific implementation tasks.
             """
             
-            dev_response = self.dev_lead_agent["chain"].invoke({"input": dev_prompt})
-            lead_inputs["Development Lead"] = dev_response.content
+            frontend_response = self.frontend_dev_agent["chain"].invoke({"input": frontend_prompt})
+            worker_outputs["Frontend Developer"] = frontend_response.content
             progress.update(task1, completed=True)
             
-            # Get input from Design Lead
-            task2 = progress.add_task("🎨 Design Lead analyzing user experience requirements...", total=None)
+            # Backend Developer implementation
+            task2 = progress.add_task("🖥️ Backend Developer implementing server functionality...", total=None)
             
-            design_prompt = f"""
-            As the Design Lead, you've been asked to provide an initial user experience assessment of this project:
+            backend_prompt = f"""
+            As the Backend Developer, you've been assigned to implement the server-side components for this feature:
             
-            {project_description}
+            {feature_description}
             
             Please provide:
-            1. User experience assessment
-            2. Key design considerations and challenges
-            3. Alignment with brand and user expectations
-            4. Recommendations from a design and UX perspective
+            1. Your implementation approach for the server-side functionality
+            2. Key APIs and data structures you'll create
+            3. Any clarifications you need from your lead
+            4. Estimated time to complete
             
-            Keep your assessment under 200 words, focused on user experience and design elements.
+            Keep your response under 150 words, focused on your specific implementation tasks.
             """
             
-            design_response = self.design_lead_agent["chain"].invoke({"input": design_prompt})
-            lead_inputs["Design Lead"] = design_response.content
+            backend_response = self.backend_dev_agent["chain"].invoke({"input": backend_prompt})
+            worker_outputs["Backend Developer"] = backend_response.content
             progress.update(task2, completed=True)
             
-            # Get input from Analytics Lead
-            task3 = progress.add_task("📊 Analytics Lead developing measurement framework...", total=None)
+            # Functional Tester implementation
+            task3 = progress.add_task("🔍 Functional Tester creating test cases...", total=None)
             
-            analytics_prompt = f"""
-            As the Analytics Lead, you've been asked to provide an initial measurement framework for this project:
+            functional_prompt = f"""
+            As the Functional Tester, you need to create test cases for this feature:
             
-            {project_description}
+            {feature_description}
             
             Please provide:
-            1. Key metrics and success criteria
-            2. Data collection requirements
-            3. ROI measurement approach
-            4. Recommendations from a data and analytics perspective
+            1. Key test scenarios you'll verify
+            2. Test data requirements
+            3. Edge cases you'll focus on
+            4. Expected outcomes for the main test cases
             
-            Keep your assessment under 200 words, focused on measurement and data analysis.
+            Keep your response under 150 words, focused on functional testing specifics.
             """
             
-            analytics_response = self.analytics_lead_agent["chain"].invoke({"input": analytics_prompt})
-            lead_inputs["Analytics Lead"] = analytics_response.content
+            functional_response = self.functional_tester_agent["chain"].invoke({"input": functional_prompt})
+            worker_outputs["Functional Tester"] = functional_response.content
             progress.update(task3, completed=True)
+            
+            # Performance Tester implementation
+            task4 = progress.add_task("📊 Performance Tester creating load tests...", total=None)
+            
+            performance_prompt = f"""
+            As the Performance Tester, you need to create performance tests for this feature:
+            
+            {feature_description}
+            
+            Please provide:
+            1. Key performance metrics you'll measure
+            2. Load testing approach
+            3. Performance expectations and thresholds
+            4. Tools and methods you'll use
+            
+            Keep your response under 150 words, focused on performance testing specifics.
+            """
+            
+            performance_response = self.performance_tester_agent["chain"].invoke({"input": performance_prompt})
+            worker_outputs["Performance Tester"] = performance_response.content
+            progress.update(task4, completed=True)
         
-        # Display team lead assessments
+        # Display worker implementations
         console.print()
-        for lead, assessment in lead_inputs.items():
-            console.print(Panel(assessment[:250] + "..." if len(assessment) > 250 else assessment, 
-                               title=f"[bold]{lead} Assessment[/bold]", 
-                               border_style="dim",
-                               padding=(1, 2)))
+        for worker, output in worker_outputs.items():
+            console.print(Panel(
+                output[:200] + "..." if len(output) > 200 else output, 
+                title=f"[bold]{worker} Implementation[/bold]", 
+                border_style="dim",
+                padding=(1, 1)
+            ))
             console.print()
         
-        return lead_inputs
+        return worker_outputs
     
-    def get_department_recommendations(self, project_description: str, lead_inputs: Dict[str, str]) -> Dict[str, str]:
-        """Department heads review team lead inputs and make recommendations"""
-        console.print("[bold yellow]Phase 2: Department Heads Review & Recommendations[/bold yellow]")
+    def mid_level_review(self, feature_description: str, worker_outputs: Dict[str, str]) -> Dict[str, str]:
+        """Mid-level managers review worker output and provide feedback"""
+        console.print("[bold yellow]Phase 2: Mid-Level Management Review[/bold yellow]")
         
-        dept_recommendations = {}
+        mid_level_reviews = {}
         
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
         ) as progress:
-            # CTO reviews Development Lead input
-            task1 = progress.add_task("👨‍💼 CTO reviewing technical assessment...", total=None)
+            # Development Lead reviews developer outputs
+            task1 = progress.add_task("👨‍💼 Development Lead reviewing code implementations...", total=None)
             
-            cto_prompt = f"""
-            As the CTO, you need to review your Development Lead's assessment and make a recommendation to the CEO about this project:
+            dev_lead_prompt = f"""
+            As the Development Lead, review the implementations from your team members for this feature:
             
-            Project Description:
-            {project_description}
+            Feature: {feature_description}
             
-            Development Lead's Assessment:
-            {lead_inputs["Development Lead"]}
+            Frontend Developer's Implementation:
+            {worker_outputs["Frontend Developer"]}
+            
+            Backend Developer's Implementation:
+            {worker_outputs["Backend Developer"]}
             
             Please provide:
-            1. Your evaluation of the technical aspects of this project
-            2. Key technical considerations the CEO should know
-            3. Potential risks and mitigation strategies
-            4. Your recommendation from a technology perspective
+            1. Your assessment of both implementations
+            2. Feedback for improvements
+            3. Integration considerations between frontend and backend
+            4. Recommendation to the Project Manager
             
-            Keep your recommendation under 250 words, focused on strategic technical considerations.
+            Keep your review under 200 words, focused on technical quality and integration.
             """
             
-            cto_response = self.tech_vp_agent["chain"].invoke({"input": cto_prompt})
-            dept_recommendations["CTO"] = cto_response.content
+            dev_lead_response = self.dev_lead_agent["chain"].invoke({"input": dev_lead_prompt})
+            mid_level_reviews["Development Lead"] = dev_lead_response.content
             progress.update(task1, completed=True)
             
-            # CMO reviews Design Lead input
-            task2 = progress.add_task("👩‍💼 CMO reviewing UX and design assessment...", total=None)
+            # QA Lead reviews tester outputs
+            task2 = progress.add_task("👩‍💼 QA Lead reviewing test plans...", total=None)
             
-            cmo_prompt = f"""
-            As the CMO, you need to review your Design Lead's assessment and make a recommendation to the CEO about this project:
+            qa_lead_prompt = f"""
+            As the QA Lead, review the test plans from your team members for this feature:
             
-            Project Description:
-            {project_description}
+            Feature: {feature_description}
             
-            Design Lead's Assessment:
-            {lead_inputs["Design Lead"]}
+            Functional Tester's Test Plan:
+            {worker_outputs["Functional Tester"]}
+            
+            Performance Tester's Test Plan:
+            {worker_outputs["Performance Tester"]}
             
             Please provide:
-            1. Your evaluation of the marketing and user experience aspects
-            2. Key market and brand considerations the CEO should know
-            3. Potential opportunities and competitive advantages
-            4. Your recommendation from a marketing perspective
+            1. Your assessment of both test plans
+            2. Additional test scenarios to consider
+            3. Overall test coverage assessment
+            4. Recommendation to the Project Manager
             
-            Keep your recommendation under 250 words, focused on strategic marketing considerations.
+            Keep your review under 200 words, focused on test quality and coverage.
             """
             
-            cmo_response = self.marketing_vp_agent["chain"].invoke({"input": cmo_prompt})
-            dept_recommendations["CMO"] = cmo_response.content
+            qa_lead_response = self.qa_lead_agent["chain"].invoke({"input": qa_lead_prompt})
+            mid_level_reviews["QA Lead"] = qa_lead_response.content
             progress.update(task2, completed=True)
-            
-            # CFO reviews Analytics Lead input
-            task3 = progress.add_task("👨‍💼 CFO reviewing financial and analytics assessment...", total=None)
-            
-            cfo_prompt = f"""
-            As the CFO, you need to review your Analytics Lead's assessment and make a recommendation to the CEO about this project:
-            
-            Project Description:
-            {project_description}
-            
-            Analytics Lead's Assessment:
-            {lead_inputs["Analytics Lead"]}
-            
-            Please provide:
-            1. Your evaluation of the financial aspects of this project
-            2. Key financial considerations the CEO should know
-            3. Budget implications and resource requirements
-            4. Your recommendation from a financial perspective
-            
-            Keep your recommendation under 250 words, focused on strategic financial considerations.
-            """
-            
-            cfo_response = self.finance_vp_agent["chain"].invoke({"input": cfo_prompt})
-            dept_recommendations["CFO"] = cfo_response.content
-            progress.update(task3, completed=True)
         
-        # Display department head recommendations
+        # Display mid-level reviews
         console.print()
-        for dept, recommendation in dept_recommendations.items():
-            console.print(Panel(recommendation[:300] + "..." if len(recommendation) > 300 else recommendation, 
-                               title=f"[bold]{dept} Recommendation[/bold]", 
-                               border_style="blue",
-                               padding=(1, 2)))
+        for manager, review in mid_level_reviews.items():
+            console.print(Panel(
+                review, 
+                title=f"[bold]{manager} Review[/bold]", 
+                border_style="blue",
+                padding=(1, 1)
+            ))
             console.print()
         
-        return dept_recommendations
+        return mid_level_reviews
     
-    def get_ceo_decision(self, project_description: str, dept_recommendations: Dict[str, str]) -> str:
-        """CEO reviews department head recommendations and makes final decision"""
-        console.print("[bold yellow]Phase 3: CEO Final Decision[/bold yellow]")
+    def top_level_decision(self, feature_description: str, mid_level_reviews: Dict[str, str]) -> str:
+        """Project Manager makes final decision based on all inputs"""
+        console.print("[bold yellow]Phase 3: Top-Level Decision[/bold yellow]")
         
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console,
         ) as progress:
-            task = progress.add_task("🏢 CEO evaluating all recommendations and making final decision...", total=None)
+            task = progress.add_task("🏢 Project Manager making final decision...", total=None)
             
-            # Compile all recommendations
-            all_recommendations = "\n\n".join([f"## {dept} Recommendation:\n{rec}" for dept, rec in dept_recommendations.items()])
+            # Compile all reviews
+            all_reviews = "\n\n".join([f"## {manager} Review:\n{review}" for manager, review in mid_level_reviews.items()])
             
-            ceo_prompt = f"""
-            As the CEO, you need to make a final decision about this project after reviewing recommendations from your leadership team:
+            pm_prompt = f"""
+            As the Project Manager, make a final decision about this feature implementation:
             
-            Project Description:
-            {project_description}
+            Feature: {feature_description}
             
-            Department Recommendations:
-            {all_recommendations}
+            Team Lead Reviews:
+            {all_reviews}
             
-            Please provide your final decision in this format:
+            Please provide your final decision including:
             
-            ## Decision
-            [Approve/Reject/Request More Information]
+            ## Implementation Decision
+            [Approve to Proceed / Request Changes / Hold for More Information]
             
             ## Rationale
-            [Explanation of your decision, considering all department input]
+            [Explain your decision based on the team's input]
             
-            ## Implementation Directives
-            [If approved, key directives for implementation]
-            [If rejected, explanation of why and possible alternatives]
-            [If more information needed, specific questions for departments]
+            ## Next Steps
+            [Clear direction for the team on what happens next]
             
-            ## Priority Level
-            [High/Medium/Low]
+            ## Timeline
+            [Updated timeline expectations]
             
-            Keep your decision under 350 words, focused on executive-level strategic considerations.
+            Keep your decision under 250 words, focused on clarity and direction.
             """
             
-            ceo_response = self.ceo_agent["chain"].invoke({"input": ceo_prompt})
-            final_decision = ceo_response.content
+            pm_response = self.project_manager_agent["chain"].invoke({"input": pm_prompt})
+            final_decision = pm_response.content
             
             progress.update(task, completed=True)
         
@@ -458,7 +443,7 @@ class HierarchicalPatternDemo:
     def display_header(self):
         """Display demo header"""
         header = Panel.fit(
-            "[bold blue]👔 Hierarchical Pattern Demo - Corporate Decision Making[/bold blue]\n"
+            "[bold blue]👨‍💼 Hierarchical Pattern Demo - Software Project Team[/bold blue]\n"
             "[dim]Agents organized in a management hierarchy with different levels of authority[/dim]",
             border_style="blue"
         )
@@ -466,60 +451,143 @@ class HierarchicalPatternDemo:
         console.print()
     
     def display_hierarchy(self):
-        """Display the organizational hierarchy"""
-        tree = Tree("🏢 [bold]Corporate Hierarchy[/bold]", guide_style="dim")
+        """Display the team hierarchy and agent details"""
+        console.print("[bold cyan]Software Project Team - Agent Overview[/bold cyan]")
         
-        # Add CEO
-        ceo_node = tree.add("[bold blue]CEO[/bold blue] (Final Decision Maker)")
+        # Create agent overview table
+        table = Table(title="Software Project Team Hierarchy", show_header=True, header_style="bold magenta", box=box.ROUNDED)
+        table.add_column("Agent", style="cyan", no_wrap=True)
+        table.add_column("Role", style="green")
+        table.add_column("Responsibilities", style="yellow")
+        table.add_column("Level", style="blue")
         
-        # Add department heads
-        cto_node = ceo_node.add("[bold cyan]CTO[/bold cyan] (Technical Strategy)")
-        cmo_node = ceo_node.add("[bold magenta]CMO[/bold magenta] (Marketing Strategy)")
-        cfo_node = ceo_node.add("[bold yellow]CFO[/bold yellow] (Financial Strategy)")
+        # Add agents to table
+        table.add_row(
+            "Project Manager", 
+            "Overall Project Leader",
+            "Sets priorities, approves decisions, manages team leads, ensures project success",
+            "[bold]TOP[/bold]"
+        )
+        table.add_row(
+            "Development Lead", 
+            "Technical Leader",
+            "Breaks down tech requirements, manages developers, ensures code quality",
+            "[bold]MID[/bold]"
+        )
+        table.add_row(
+            "QA Lead", 
+            "Quality Assurance Leader",
+            "Creates test plans, manages testers, verifies product quality",
+            "[bold]MID[/bold]"
+        )
+        table.add_row(
+            "Frontend Developer", 
+            "UI Specialist",
+            "Implements user interfaces, responsive design, client-side functionality",
+            "[bold]WORKER[/bold]"
+        )
+        table.add_row(
+            "Backend Developer", 
+            "Server-Side Specialist",
+            "Implements APIs, database interactions, server-side logic",
+            "[bold]WORKER[/bold]"
+        )
+        table.add_row(
+            "Functional Tester", 
+            "Feature Verification",
+            "Tests features, verifies workflows, identifies bugs",
+            "[bold]WORKER[/bold]"
+        )
+        table.add_row(
+            "Performance Tester", 
+            "System Performance",
+            "Tests load capacity, identifies bottlenecks, measures response times",
+            "[bold]WORKER[/bold]"
+        )
         
-        # Add team leads
-        cto_node.add("[green]Development Lead[/green] (Technical Implementation)")
-        cmo_node.add("[green]Design Lead[/green] (UX & Design)")
-        cfo_node.add("[green]Analytics Lead[/green] (Data & Metrics)")
+        console.print(table)
+        console.print()
+        
+        # Show hierarchical structure visual
+        tree = Tree("🏢 [bold]Project Team Hierarchy[/bold]", guide_style="dim")
+        
+        # Add Project Manager
+        pm_node = tree.add("[bold blue]Project Manager[/bold blue] (Top Level)")
+        
+        # Add Team Leads
+        dev_node = pm_node.add("[bold cyan]Development Lead[/bold cyan] (Mid Level)")
+        qa_node = pm_node.add("[bold magenta]QA Lead[/bold magenta] (Mid Level)")
+        
+        # Add Team Members
+        dev_node.add("[green]Frontend Developer[/green] (Worker Level)")
+        dev_node.add("[green]Backend Developer[/green] (Worker Level)")
+        qa_node.add("[green]Functional Tester[/green] (Worker Level)")
+        qa_node.add("[green]Performance Tester[/green] (Worker Level)")
         
         console.print(tree)
         console.print()
         
-        # Display information flow
-        console.print("[bold cyan]Decision-Making Information Flow:[/bold cyan]")
-        console.print("[dim]1. Team Leads provide specialized assessments[/dim]")
-        console.print("[dim]2. Department Heads review and make strategic recommendations[/dim]")
-        console.print("[dim]3. CEO evaluates all input and makes final decision[/dim]")
-        console.print("[dim]4. Decisions flow back down for implementation[/dim]")
+        # Display information flow with clearer visualization
+        flow_panel = Panel(
+            "[bold]Information Flow (↑):[/bold]\n"
+            "Worker Level → Mid Level → Top Level\n"
+            "- Workers report implementation details\n"
+            "- Team leads synthesize information\n"
+            "- Project Manager receives consolidated status\n\n"
+            "[bold]Decision Flow (↓):[/bold]\n"
+            "Top Level → Mid Level → Worker Level\n"
+            "- Project Manager sets direction and makes approvals\n"
+            "- Team leads translate decisions into actionable plans\n"
+            "- Workers implement based on approved direction",
+            title="[bold cyan]Information & Decision Flow[/bold cyan]",
+            border_style="cyan",
+            padding=(1, 2)
+        )
+        console.print(flow_panel)
         console.print()
     
-    def demonstrate_hierarchical_pattern(self, project_description: str):
-        """Demonstrate the hierarchical pattern with a business decision"""
+    def demonstrate_hierarchical_pattern(self, feature_description: str):
+        """Demonstrate the hierarchical pattern with a software feature implementation"""
         
-        console.print(f"[bold green]Project Proposal:[/bold green] {project_description}")
+        console.print(f"[bold green]Feature Request:[/bold green] {feature_description}")
         console.print()
         
         start_time = time.time()
         
-        # Phase 1: Team Leads provide initial input
-        lead_inputs = self.get_input_from_team_leads(project_description)
+        # Phase 1: Worker level implementation
+        worker_outputs = self.worker_level_implementation(feature_description)
         
-        # Phase 2: Department Heads review and make recommendations
-        dept_recommendations = self.get_department_recommendations(project_description, lead_inputs)
+        # Phase 2: Mid-level review
+        mid_level_reviews = self.mid_level_review(feature_description, worker_outputs)
         
-        # Phase 3: CEO makes final decision
-        final_decision = self.get_ceo_decision(project_description, dept_recommendations)
+        # Phase 3: Top-level decision
+        final_decision = self.top_level_decision(feature_description, mid_level_reviews)
         
         # Display final decision
         console.print(Panel(
             final_decision,
-            title="[bold green]CEO Final Decision[/bold green]",
+            title="[bold green]Project Manager's Final Decision[/bold green]",
             border_style="green",
             padding=(1, 2)
         ))
         
         end_time = time.time()
         processing_time = end_time - start_time
+        
+        # Show pattern explanation
+        console.print()
+        explanation_panel = Panel(
+            "[bold]What just happened?[/bold]\n\n"
+            "This demo showed the [bold cyan]Hierarchical Pattern[/bold cyan] in action:\n\n"
+            "1️⃣ Workers at the bottom level implemented specific components\n"
+            "2️⃣ Mid-level managers reviewed, provided feedback, and coordinated\n"
+            "3️⃣ Top-level manager made the final decision based on all inputs\n\n"
+            "[dim]This pattern is great when clear authority and accountability is needed![/dim]",
+            title="[bold magenta]Hierarchical Pattern Explained[/bold magenta]",
+            border_style="magenta",
+            padding=(1, 2)
+        )
+        console.print(explanation_panel)
         
         # Show performance summary
         console.print()
@@ -529,8 +597,8 @@ class HierarchicalPatternDemo:
         
         summary_table.add_row("⏱️  Total Processing Time:", f"{processing_time:.2f} seconds")
         summary_table.add_row("🔄 Pattern Used:", "Hierarchical (Management Structure)")
-        summary_table.add_row("👥 Organization Levels:", "3 (Executive, Department, Team)")
-        summary_table.add_row("🔁 Decision Process Steps:", "3 (Assessment, Recommendation, Decision)")
+        summary_table.add_row("👥 Organization Levels:", "3 (Project Manager, Team Leads, Workers)")
+        summary_table.add_row("🔁 Decision Process:", "Bottom-up information flow, top-down decisions")
         
         console.print(summary_table)
         console.print()
@@ -549,29 +617,22 @@ def main():
         demo.display_header()
         demo.display_hierarchy()
         
-        console.print("[bold]Demonstrating Hierarchical Pattern with Corporate Decision Making[/bold]\n")
+        console.print("[bold]Demonstrating Hierarchical Pattern with Software Project Team[/bold]\n")
         
-        # Example project proposal
-        project_description = """
-        Project: AI-Enhanced Customer Support Platform
+        # Example feature request
+        feature_description = """
+        Feature: User Profile Photo Upload
         
-        Our customer service team is overwhelmed with support tickets, with resolution times increasing by 25% 
-        over the last quarter. We propose developing an AI-enhanced customer support platform that would:
-        
-        1. Automatically categorize and prioritize incoming support tickets
-        2. Provide instant responses to common questions using a knowledge base
-        3. Assist support agents with relevant information and suggested responses
-        4. Offer analytics on common issues to inform product improvements
-        
-        Initial estimates suggest a 6-month development timeline with a budget of $500,000.
-        Expected outcomes include 40% reduction in first-response time, 25% increase in customer satisfaction,
-        and 15% reduction in support team workload.
-        
-        We're seeking executive approval to proceed with this project.
+        We need to implement a feature that allows users to upload and update their profile photos.
+        Requirements:
+        - Users should be able to upload JPG, PNG, or GIF files up to 5MB
+        - The system should automatically resize photos to multiple dimensions for different display contexts
+        - Users should see a preview of their photo before confirming the upload
+        - The feature should handle at least 1000 concurrent uploads during peak usage
         """
         
         # Run the demo
-        demo.demonstrate_hierarchical_pattern(project_description)
+        demo.demonstrate_hierarchical_pattern(feature_description)
         
         console.print("\n[bold green]Hierarchical Pattern Demo Complete![/bold green]")
     

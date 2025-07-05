@@ -15,19 +15,112 @@
     </header>
 
     <nav class="pattern-nav">
-        <button class="nav-btn active" data-pattern="route">Route Pattern</button>
+        <button class="nav-btn active" data-pattern="profile">Presenter Profile</button>
+        <button class="nav-btn" data-pattern="title">Title</button>
+        <button class="nav-btn" data-pattern="intro">Introduction</button>
+        <button class="nav-btn" data-pattern="route">Route Pattern</button>
         <button class="nav-btn" data-pattern="coordinate">Coordinate Pattern</button>
         <button class="nav-btn" data-pattern="collaborate">Collaborate Pattern</button>
-        <button class="nav-btn" data-pattern="competitive">Competitive Pattern</button>
         <button class="nav-btn" data-pattern="loop">Loop Pattern</button>
-        <button class="nav-btn" data-pattern="aggregator">Aggregator Pattern</button>
         <button class="nav-btn" data-pattern="network">Network Pattern</button>
         <button class="nav-btn" data-pattern="hierarchical">Hierarchical Pattern</button>
         <button class="nav-btn" data-pattern="thank-you">Thank You</button>
     </nav>
 
+    <!-- Title Slide -->
+    <section id="title-pattern" class="pattern-section">
+        <div class="pattern-header">
+            <h2>Multi-Agent System Patterns</h2>
+            <p>An Interactive Demonstration of AI Collaboration Models</p>
+        </div>
+        
+        <div class="demo-container">
+            <div class="title-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 400px; text-align: center;">
+                <p style="font-size: 1.5rem; margin-bottom: 2rem;">Exploring How AI Agents Work Together</p>
+                
+                <div style="width: 100%; text-align: left; max-width: 800px;">
+                    <div class="core-questions" style="margin-top: 20px;">
+                        <h3>Core Concepts:</h3>
+                        <ul style="font-size: 1.2rem; line-height: 1.6;">
+                            <li>What is an LLM?</li>
+                            <li>What is an AI agent?</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="agenda-questions" style="margin-top: 20px;">
+                        <h3>Today's Agenda:</h3>
+                        <ul style="font-size: 1.2rem; line-height: 1.6;">
+                            <li>What is a multi-agent system?</li>
+                            <li>Why do we need multi-agent systems?</li>
+                            <li>What are multi-agent system patterns?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile-pattern" class="pattern-section active">
+        <div class="pattern-header">
+            <h2>Multi-Agent System Patterns - Interactive Demonstration</h2>
+            <p>Exploring different ways AI agents can work together to accomplish complex tasks</p>
+        </div>
+        
+        <div class="demo-container">
+            <div class="profile-content">
+                <div class="profile-image-container">
+                    <img src="presenter-profile.png" alt="Presenter Profile" class="profile-image">
+                </div>
+                <div class="profile-details">
+                    <h2>Ganapathy Subramanian S</h2>
+                    <h3>Engineer at Presidio</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Slide -->
+    <section id="intro-pattern" class="pattern-section">
+        <div class="pattern-header">
+            <h2>Multi-Agent System Patterns - Introduction</h2>
+            <p>Exploring different ways AI agents can work together to accomplish complex tasks.</p>
+        </div>
+        
+        <div class="demo-container">
+            <div class="intro-content">
+                <div class="intro-section">
+                    <h4>What Are Multi-Agent Systems?</h4>
+                    <p>A multi-agent system is a group of AI agents working together to solve problems that are difficult or impossible for a single agent to solve.</p>
+                </div>
+                
+                <div class="intro-section">
+                    <h4>Why Patterns Matter</h4>
+                    <p>Different collaboration patterns offer unique advantages for different types of tasks and challenges.</p>
+                </div>
+                
+                <div class="intro-section">
+                    <h4>6 Key Multi-Agent Patterns</h4>
+                    <ol>
+                        <li><strong>Route Pattern</strong>: Directing tasks to specialists</li>
+                        <li><strong>Coordinate Pattern</strong>: Sequential workflows</li>
+                        <li><strong>Collaborate Pattern</strong>: Parallel problem-solving</li>
+                        <li><strong>Loop Pattern</strong>: Iterative improvement</li>
+                        <li><strong>Network Pattern</strong>: Web-like communication</li>
+                        <li><strong>Hierarchical Pattern</strong>: Manager-worker structure</li>
+                    </ol>
+                </div>
+                
+                <div class="intro-section">
+                    <h4>Interactive Demos</h4>
+                    <p>Each pattern includes a live demonstration showing how agents interact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Route Pattern Demo -->
-    <section id="route-pattern" class="pattern-section active">
+    <section id="route-pattern" class="pattern-section">
         <div class="pattern-header">
             <h2>Multi-Agent System Patterns - Introduction</h2>
             <p>Exploring different ways AI agents can work together to accomplish complex tasks.</p>
@@ -64,16 +157,16 @@
             <div class="input-section">
                 <h3>Try Different Languages:</h3>
                 <div class="language-buttons">
-                    <button class="lang-btn" data-text="Hello, how are you?" data-lang="English">English</button>
-                    <button class="lang-btn" data-text="Hola, ¿cómo estás?" data-lang="Spanish">Spanish</button>
-                    <button class="lang-btn" data-text="Bonjour, comment allez-vous?" data-lang="French">French</button>
-                    <button class="lang-btn" data-text="你好吗？" data-lang="Chinese">Chinese</button>
-                    <button class="lang-btn" data-text="お元気ですか？" data-lang="Japanese">Japanese</button>
+                    <button class="route-lang-btn btn" data-text="Hello, how are you?" data-lang="English">English</button>
+                    <button class="route-lang-btn btn" data-text="Hola, ¿cómo estás?" data-lang="Spanish">Spanish</button>
+                    <button class="route-lang-btn btn" data-text="Bonjour, comment allez-vous?" data-lang="French">French</button>
+                    <button class="route-lang-btn btn" data-text="你好吗？" data-lang="Chinese">Chinese</button>
+                    <button class="route-lang-btn btn" data-text="お元気ですか？" data-lang="Japanese">Japanese</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="route-input" placeholder="Or type your own message...">
                     <button id="route-submit">Send</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -136,15 +229,15 @@
             <div class="input-section">
                 <h3>Request an Article:</h3>
                 <div class="topic-buttons">
-                    <button class="topic-btn" data-topic="Artificial Intelligence">AI Trends</button>
-                    <button class="topic-btn" data-topic="Climate Change">Climate Change</button>
-                    <button class="topic-btn" data-topic="Space Exploration">Space Exploration</button>
-                    <button class="topic-btn" data-topic="Renewable Energy">Renewable Energy</button>
+                    <button class="coordinate-topic-btn btn" data-topic="Artificial Intelligence">AI Trends</button>
+                    <button class="coordinate-topic-btn btn" data-topic="Climate Change">Climate Change</button>
+                    <button class="coordinate-topic-btn btn" data-topic="Space Exploration">Space Exploration</button>
+                    <button class="coordinate-topic-btn btn" data-topic="Renewable Energy">Renewable Energy</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="coordinate-input" placeholder="Or enter your own topic...">
                     <button id="coordinate-submit">Create Article</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -198,48 +291,42 @@
     <!-- Collaborate Pattern Demo -->
     <section id="collaborate-pattern" class="pattern-section">
         <div class="pattern-header">
-            <h2>Collaborate Pattern - Research Panel Discussion</h2>
-            <p>All team members respond simultaneously, then the coordinator synthesizes into a consensus.</p>
+            <h2>Collaborate Pattern - Vacation Planning Team</h2>
+            <p>Multiple expert agents analyze a vacation destination simultaneously and combine their insights into a perfect travel plan.</p>
         </div>
         
         <div class="demo-container">
             <div class="input-section">
-                <h3>Ask the Research Panel:</h3>
+                <h3>Choose a Vacation Destination:</h3>
                 <div class="question-buttons">
-                    <button class="question-btn" data-question="What is the best way to learn programming?">Learning Programming</button>
-                    <button class="question-btn" data-question="How will AI impact jobs in the next 5 years?">AI Impact on Jobs</button>
-                    <button class="question-btn" data-question="What are the most promising renewable energy technologies?">Renewable Energy Tech</button>
-                    <button class="question-btn" data-question="How can we improve remote work productivity?">Remote Work Tips</button>
+                    <button class="collaborate-question-btn btn" data-question="Provide a complete vacation analysis for Kyoto, Japan - Historic city with temples and traditional culture">Kyoto, Japan</button>
+                    <button class="collaborate-question-btn btn" data-question="Provide a complete vacation analysis for Paris, France - City of lights and culture">Paris, France</button>
+                    <button class="collaborate-question-btn btn" data-question="Provide a complete vacation analysis for Hawaii - Tropical island paradise">Hawaii Islands</button>
+                    <button class="collaborate-question-btn btn" data-question="Provide a complete vacation analysis for New York City - Urban adventure destination">New York City</button>
                 </div>
-                <div class="custom-input">
-                    <input type="text" id="collaborate-input" placeholder="Or ask your own question...">
-                    <button id="collaborate-submit">Ask Panel</button>
-                </div>
+                <!-- <div class="custom-input">
+                    <input type="text" id="collaborate-input" placeholder="Or enter your own destination...">
+                    <button id="collaborate-submit">Plan Vacation</button>
+                </div> -->
             </div>
 
             <div class="visualization">
                 <div class="panel-grid">
                     <div class="panelist-card" id="reddit-researcher">
-                        <h4>Reddit Researcher</h4>
-                        <p>Community Insights</p>
+                        <h4>Budget Advisor</h4>
+                        <p>💰 Travel costs & finances</p>
                         <div class="thinking-indicator">💭</div>
                         <div class="response-preview"></div>
                     </div>
                     <div class="panelist-card" id="academic-researcher">
-                        <h4>Academic Researcher</h4>
-                        <p>Scholarly Analysis</p>
+                        <h4>Activities Recommender</h4>
+                        <p>🎭 Things to do & see</p>
                         <div class="thinking-indicator">💭</div>
                         <div class="response-preview"></div>
                     </div>
                     <div class="panelist-card" id="twitter-researcher">
-                        <h4>Twitter Researcher</h4>
-                        <p>Real-time Trends</p>
-                        <div class="thinking-indicator">💭</div>
-                        <div class="response-preview"></div>
-                    </div>
-                    <div class="panelist-card" id="hackernews-researcher">
-                        <h4>HackerNews Researcher</h4>
-                        <p>Tech Industry Views</p>
+                        <h4>Local Experience Expert</h4>
+                        <p>🧠 Destination insights</p>
                         <div class="thinking-indicator">💭</div>
                         <div class="response-preview"></div>
                     </div>
@@ -247,8 +334,8 @@
                 
                 <div class="synthesis-section">
                     <div class="coordinator-card">
-                        <h4>Discussion Coordinator</h4>
-                        <p>Synthesizing responses...</p>
+                        <h4>Vacation Planner</h4>
+                        <p>✈️ Creating your perfect trip...</p>
                         <div class="synthesis-progress">
                             <div class="progress-bar">
                                 <div class="progress" id="synthesis-progress"></div>
@@ -259,8 +346,8 @@
             </div>
 
             <div class="result-section">
-                <h3>Consensus Summary:</h3>
-                <div id="collaborate-result" class="result-box">Ask a question to see the collaborative research process!</div>
+                <h3>Your Personalized Vacation Plan:</h3>
+                <div id="collaborate-result" class="result-box">Select a destination to see the collaborative vacation planning process!</div>
             </div>
         </div>
     </section>
@@ -276,15 +363,15 @@
             <div class="input-section">
                 <h3>Select Essay Topic:</h3>
                 <div class="topic-buttons">
-                    <button class="topic-btn" data-topic="Climate Change">Climate Change</button>
-                    <button class="topic-btn" data-topic="Artificial Intelligence Ethics">AI Ethics</button>
-                    <button class="topic-btn" data-topic="Space Exploration">Space Exploration</button>
-                    <button class="topic-btn" data-topic="Renewable Energy">Renewable Energy</button>
+                    <button class="loop-topic-btn btn" data-topic="Climate Change">Climate Change</button>
+                    <button class="loop-topic-btn btn" data-topic="Artificial Intelligence Ethics">AI Ethics</button>
+                    <button class="loop-topic-btn btn" data-topic="Space Exploration">Space Exploration</button>
+                    <button class="loop-topic-btn btn" data-topic="Renewable Energy">Renewable Energy</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="loop-input" placeholder="Or enter your own topic...">
                     <button id="loop-submit">Write Essay</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -342,74 +429,6 @@
         </div>
     </section>
 
-    <!-- Aggregator Pattern Demo -->
-    <section id="aggregator-pattern" class="pattern-section">
-        <div class="pattern-header">
-            <h2>Aggregator Pattern - Weather Forecast System</h2>
-            <p>Multiple data sources provide inputs that are merged into one final result by a central aggregator.</p>
-        </div>
-        
-        <div class="demo-container">
-            <div class="input-section">
-                <h3>Select Location:</h3>
-                <div class="location-buttons">
-                    <button class="topic-btn" data-location="New York">New York</button>
-                    <button class="topic-btn" data-location="London">London</button>
-                    <button class="topic-btn" data-location="Tokyo">Tokyo</button>
-                    <button class="topic-btn" data-location="Sydney">Sydney</button>
-                </div>
-                <div class="custom-input">
-                    <input type="text" id="aggregator-input" placeholder="Or enter your location...">
-                    <button id="aggregator-submit">Get Forecast</button>
-                </div>
-            </div>
-
-            <div class="visualization">
-                <div class="aggregator-container">
-                    <h3>Weather Data Sources</h3>
-                    <div class="aggregator-layout">
-                        <div class="data-sources">
-                            <div class="data-source" id="source-a">
-                                <h4>Station Alpha</h4>
-                                <p>Temperature readings</p>
-                                <div class="data-value" id="temp-value">--°C</div>
-                            </div>
-                            
-                            <div class="data-source" id="source-b">
-                                <h4>Station Beta</h4>
-                                <p>Precipitation data</p>
-                                <div class="data-value" id="precip-value">--mm</div>
-                            </div>
-                            
-                            <div class="data-source" id="source-c">
-                                <h4>Station Gamma</h4>
-                                <p>Wind conditions</p>
-                                <div class="data-value" id="wind-value">--km/h</div>
-                            </div>
-                        </div>
-                        
-                        <div class="aggregator-arrows">
-                            <div class="arrow-to-aggregator"></div>
-                            <div class="arrow-to-aggregator"></div>
-                            <div class="arrow-to-aggregator"></div>
-                        </div>
-                        
-                        <div class="aggregator-card">
-                            <h4>Weather Aggregator</h4>
-                            <p>Combining multiple data sources</p>
-                            <div class="aggregated-value" id="forecast-result">Select a location</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="result-section">
-                <h3>Complete Forecast Report:</h3>
-                <div id="aggregator-result" class="result-box">Select a location to see the aggregator pattern in action!</div>
-            </div>
-        </div>
-    </section>
-
     <!-- Network Pattern Demo -->
     <section id="network-pattern" class="pattern-section">
         <div class="pattern-header">
@@ -421,15 +440,15 @@
             <div class="input-section">
                 <h3>Select Party Type:</h3>
                 <div class="party-buttons">
-                    <button class="topic-btn" data-party="Birthday">Birthday Party</button>
-                    <button class="topic-btn" data-party="Wedding">Wedding Reception</button>
-                    <button class="topic-btn" data-party="Corporate">Corporate Event</button>
-                    <button class="topic-btn" data-party="Holiday">Holiday Celebration</button>
+                    <button class="network-party-btn btn" data-party="Birthday">Birthday Party</button>
+                    <button class="network-party-btn btn" data-party="Wedding">Wedding Reception</button>
+                    <button class="network-party-btn btn" data-party="Corporate">Corporate Event</button>
+                    <button class="network-party-btn btn" data-party="Holiday">Holiday Celebration</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="network-input" placeholder="Or describe your event...">
                     <button id="network-submit">Plan Event</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -486,15 +505,15 @@
             <div class="input-section">
                 <h3>Select Project Type:</h3>
                 <div class="project-buttons">
-                    <button class="topic-btn" data-project="Mobile App">Mobile App</button>
-                    <button class="topic-btn" data-project="Web Platform">Web Platform</button>
-                    <button class="topic-btn" data-project="E-commerce">E-commerce Site</button>
-                    <button class="topic-btn" data-project="Data Dashboard">Data Dashboard</button>
+                    <button class="hierarchical-project-btn btn" data-project="Mobile App">Mobile App</button>
+                    <button class="hierarchical-project-btn btn" data-project="Web Platform">Web Platform</button>
+                    <button class="hierarchical-project-btn btn" data-project="E-commerce">E-commerce Site</button>
+                    <button class="hierarchical-project-btn btn" data-project="Data Dashboard">Data Dashboard</button>
                 </div>
-                <div class="custom-input">
+                <!-- <div class="custom-input">
                     <input type="text" id="hierarchical-input" placeholder="Or describe your project...">
                     <button id="hierarchical-submit">Start Project</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="visualization">
@@ -551,91 +570,62 @@
         </div>
     </section>
 
-    <!-- Competitive Pattern Demo -->
-    <section id="competitive-pattern" class="pattern-section">
+    <!-- Competitive Pattern Demo has been removed to streamline the presentation -->
+
+    <!-- Thank You Slide -->
+    <section id="thank-you-pattern" class="pattern-section">
         <div class="pattern-header">
-            <h2>Competitive Pattern - Task Auction System</h2>
-            <p>Agents compete by submitting bids, and the best offer wins the task.</p>
+            <h2>Thank You</h2>
+            <p>Multi-Agent System Patterns Presentation</p>
         </div>
         
         <div class="demo-container">
-            <div class="input-section">
-                <h3>Post a Task for Bidding:</h3>
-                <div class="task-buttons">
-                    <button class="task-btn" data-task="Translate 1000 words from English to Spanish" data-complexity="medium">Translation Task</button>
-                    <button class="task-btn" data-task="Create a logo design for a tech startup" data-complexity="high">Logo Design</button>
-                    <button class="task-btn" data-task="Write a 500-word blog post about AI" data-complexity="low">Blog Writing</button>
-                    <button class="task-btn" data-task="Develop a simple mobile app prototype" data-complexity="high">App Development</button>
-                </div>
-                <div class="custom-input">
-                    <input type="text" id="competitive-input" placeholder="Or describe your own task...">
-                    <select id="task-complexity">
-                        <option value="low">Low Complexity</option>
-                        <option value="medium">Medium Complexity</option>
-                        <option value="high">High Complexity</option>
-                    </select>
-                    <button id="competitive-submit">Post Task</button>
-                </div>
-            </div>
-
-            <div class="visualization">
-                <div class="auction-board">
-                    <div class="task-posting">
-                        <h4>Current Task:</h4>
-                        <div id="current-task">Select a task to start the auction!</div>
-                    </div>
+            <div class="thank-you-content" style="padding: 20px; display: flex; flex-direction: column; align-items: center;">
+                <div class="pattern-summary" style="width: 100%; max-width: 900px;">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: #4338ca;">Pattern Quick Reference</h3>
                     
-                    <div class="bidding-section">
-                        <h4>Live Bidding:</h4>
-                        <div class="bidders-grid">
-                            <div class="bidder-card" id="freelancer-1">
-                                <h5>Expert Freelancer</h5>
-                                <div class="bid-details">
-                                    <div class="price">$<span class="bid-price">--</span></div>
-                                    <div class="time"><span class="bid-time">--</span> hours</div>
-                                    <div class="quality">★★★★★</div>
-                                </div>
-                                <div class="bid-status">Waiting...</div>
-                            </div>
-                            
-                            <div class="bidder-card" id="freelancer-2">
-                                <h5>Budget Specialist</h5>
-                                <div class="bid-details">
-                                    <div class="price">$<span class="bid-price">--</span></div>
-                                    <div class="time"><span class="bid-time">--</span> hours</div>
-                                    <div class="quality">★★★☆☆</div>
-                                </div>
-                                <div class="bid-status">Waiting...</div>
-                            </div>
-                            
-                            <div class="bidder-card" id="freelancer-3">
-                                <h5>Speed Demon</h5>
-                                <div class="bid-details">
-                                    <div class="price">$<span class="bid-price">--</span></div>
-                                    <div class="time"><span class="bid-time">--</span> hours</div>
-                                    <div class="quality">★★★★☆</div>
-                                </div>
-                                <div class="bid-status">Waiting...</div>
-                            </div>
-                            
-                            <div class="bidder-card" id="freelancer-4">
-                                <h5>Premium Pro</h5>
-                                <div class="bid-details">
-                                    <div class="price">$<span class="bid-price">--</span></div>
-                                    <div class="time"><span class="bid-time">--</span> hours</div>
-                                    <div class="quality">★★★★★</div>
-                                </div>
-                                <div class="bid-status">Waiting...</div>
-                            </div>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px;">
+                        <!-- Route Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #e9f2ff 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 5px;">Route Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Routing to suitable agents among multiple agents</p>
+                        </div>
+                        
+                        <!-- Collaborate Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #f0f9ff 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #0891b2; border-bottom: 2px solid #0891b2; padding-bottom: 5px;">Collaborate Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Running agents simultaneously and combining responses</p>
+                        </div>
+                        
+                        <!-- Coordinate Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #f0fff4 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #059669; border-bottom: 2px solid #059669; padding-bottom: 5px;">Coordinate Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Sequential workflow where one agent relies on output of other agent</p>
+                        </div>
+                        
+                        <!-- Loop Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #fff7ed 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #d97706; border-bottom: 2px solid #d97706; padding-bottom: 5px;">Loop Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Run agent multiple times until meeting constraints or expected results</p>
+                        </div>
+                        
+                        <!-- Network Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #ffe4e6 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #be185d; border-bottom: 2px solid #be185d; padding-bottom: 5px;">Network Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Agents communicate with each other to make group decisions</p>
+                        </div>
+                        
+                        <!-- Hierarchical Pattern Card -->
+                        <div style="flex: 1 1 calc(33% - 20px); min-width: 250px; background: linear-gradient(135deg, #f5f3ff 0%, #f9f9ff 100%); border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <h4 style="margin-top: 0; color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 5px;">Hierarchical Pattern</h4>
+                            <p style="margin-bottom: 5px;"><strong>Key Concept:</strong> Manager-worker structure with clear authority levels</p>
                         </div>
                     </div>
-                    
-                    <div class="winner-section">
-                        <h4>Auction Result:</h4>
-                        <div id="auction-winner" class="winner-card">
-                            Post a task to see the competitive bidding process!
-                        </div>
-                    </div>
+                </div>
+                
+                <div class="closing-message" style="margin-top: 40px; text-align: center;">
+                    <p style="font-size: 18px;">In case of queries, feel free to reach out to me on Teams:</p>
+                    <p style="font-size: 20px; font-weight: bold; color: #4338ca; margin-top: 10px;">Ganapathy Subramanian S</p>
                 </div>
             </div>
         </div>
@@ -666,7 +656,6 @@
     </section>
 
     <!-- Load all required scripts -->
-    <script src="new-patterns.js"></script>
     <script src="script.js"></script>
     <script src="presentation.js"></script>
 </body>
